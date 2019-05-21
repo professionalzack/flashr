@@ -1,4 +1,6 @@
 Django==2.2.1
+django-extensions==2.1.7
 psycopg2==2.8.2
 pytz==2019.1
+six==1.12.0
 sqlparse==0.3.0
