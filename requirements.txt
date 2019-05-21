@@ -1,5 +1,6 @@
 Django==2.2.1
 django-extensions==2.1.7
+gunicorn==19.9.0
 psycopg2==2.8.2
 pytz==2019.1
 six==1.12.0
