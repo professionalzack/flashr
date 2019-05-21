@@ -51,3 +51,6 @@ def login(request):
 def logout(request):
   auth.logout(request)
   return redirect('register')#in the future this should be to the landing
+
+def profile(request):
+  return render(request, 'accounts/profile.html')
