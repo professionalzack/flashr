@@ -1,0 +1,1 @@
+web: gunicorn flashr_project.wsgi
