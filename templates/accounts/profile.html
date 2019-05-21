@@ -1,2 +1,25 @@
-<h1>hey there, {{ profile.user.username }}!</h1>
-<a href="{% url 'logout' %}">log out</a>
+{% extends '../base.html' %} {% block content %}
+<main>
+  <div>
+    <!-- hero image background -->
+    <p>name</p>
+    <p>date joined</p>
+    <p>questions answered</p>
+    <p>etc</p>
+  </div>
+  <div class="profile_body">
+    <ul>
+      <li>Question</li>
+      <li>Answer</li>
+    </ul>
+    <ul>
+      <li>Question</li>
+      <li>Answer</li>
+    </ul>
+    <ul>
+      <li>Question</li>
+      <li>Answer</li>
+    </ul>
+  </div>
+</main>
+{% endblock %}
