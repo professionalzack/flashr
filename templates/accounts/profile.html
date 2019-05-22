@@ -2,14 +2,13 @@
 <main>
   <div>
     <!-- <img src="{{ profile.picture }}" alt="" class="artist-photo" /> -->
-    <h1>Username: {{ user.username }}</h1>
-    <p>Email: {{ user.email }}</p>
-    <p>Joined on: {{ user.date_joined }}</p>
-    <p>Last Logged in at: {{ user.last_login }}</p>
+    <h1>Username: {{ profile.user.username }}</h1>
+    <p>Email: {{ profile.user.email }}</p>
+    <p>Joined on: {{ profile.user.date_joined }}</p>
+    <p>Last Logged in at: {{ profile.user.last_login }}</p>
   </div>
   <div class="profile_body">
-    <li>{% tags.id pk=1 %}</li>
-    <li>{% tags.objects.all() %}</li>
+
     <ul>
       <li>Question</li>
       <li>Answer</li>
