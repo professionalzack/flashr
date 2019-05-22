@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from .forms import ProfileForm
+from .models import Profile
 
 # Create your views here.
 def register(request):
@@ -51,6 +53,19 @@ def login(request):
 def logout(request):
   auth.logout(request)
   return redirect('register')#in the future this should be to the landing
+
+@login_required
+def profile_create(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            return redirect('artist_list')
+    else:
+        form = ProfileForm()
+    return render(request, 'accounts/profile_form.html', {'form': form})
 
 @login_required
 def profile(request):
