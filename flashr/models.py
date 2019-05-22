@@ -9,8 +9,8 @@ class Tag(models.Model):
 class Question(models.Model):
   author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='question')
   title = models.CharField(max_length=100)
-  content = models.TextField()
-  tags = models.ManyToManyField(Tag)
+  content = models.TextField(null=True, blank=True)
+  tags = models.ManyToManyField(Tag, blank=True)
   #tags and questions must exist before being combined
     #question = //whatever from the form data
     #question.save()
@@ -30,16 +30,16 @@ class Deck(models.Model):
 class Pain(models.Model):
   profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='pain')
   question = models.ForeignKey(Question, on_delete=models. CASCADE, related_name='pain')
-  pain_level = models.IntegerField()
-  time_stamp = models.DateField() # use .auto_now_add() in views at pain_create
+  level = models.IntegerField()
+  time_stamp = models.DateField(null=True, blank=True) # use .auto_now_add() in views at pain_create
 
   def __str__(self):
-    return self.pain_level
+    return self.level
 
 class Answer(models.Model):
   author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='answer')
   question = models.ForeignKey(Question, on_delete=models. CASCADE, related_name='answer')
-  public = models.BooleanField()
+  public = models.BooleanField(default=False)
   content = models.TextField()
 
   def __str__(self):
