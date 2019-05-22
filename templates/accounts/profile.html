@@ -8,6 +8,8 @@
     <p>Last Logged in at: {{ user.last_login }}</p>
   </div>
   <div class="profile_body">
+    <li>{% tags.id pk=1 %}</li>
+    <li>{% tags.objects.all() %}</li>
     <ul>
       <li>Question</li>
       <li>Answer</li>
