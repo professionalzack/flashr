@@ -1,4 +1,5 @@
 {
   "git.ignoreLimitWarning": true,
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "python.pythonPath": ".env/bin/python3.7"
 }

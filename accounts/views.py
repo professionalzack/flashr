@@ -51,3 +51,9 @@ def login(request):
 def logout(request):
   auth.logout(request)
   return redirect('register')#in the future this should be to the landing
+
+@login_required
+def profile(request):
+  user = request.user
+  profile = Profile.objects.get(user=user.pk)
+  return render(request, 'accounts/profile.html', {'profile': profile})
