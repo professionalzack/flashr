@@ -15,7 +15,12 @@ def deck_show(request):
 
 def deck_create(request, tag): #is this correct?
   old_deck = Deck.objects.filter(profile = user.profile).delete()
-  deck = Question.objects.filter(tags__content=tag).order_by(pain.level)
+  
+  deck = Question.objects.filter(tags__content=tag)
+    .filter(//NOT SURE DUDE)
+    .extends(Question.objects.filter(tags__content=tag)
+    .order_by(pain.level))
+
   for idx, card in enumerate(deck):
     Deck.objects.create(profile=user.profile, question=deck[idx], order_idx=(idx+1))
   return redirect('deck_show')
