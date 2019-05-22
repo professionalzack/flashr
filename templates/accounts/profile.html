@@ -1,11 +1,11 @@
 {% extends '../base.html' %} {% block content %}
 <main>
   <div>
-    <!-- hero image background -->
-    <p>name</p>
-    <p>date joined</p>
-    <p>questions answered</p>
-    <p>etc</p>
+    <!-- <img src="{{ profile.picture }}" alt="" class="artist-photo" /> -->
+    <h1>Username: {{ user.username }}</h1>
+    <p>Email: {{ user.email }}</p>
+    <p>Joined on: {{ user.date_joined }}</p>
+    <p>Last Logged in at: {{ user.last_login }}</p>
   </div>
   <div class="profile_body">
     <ul>
