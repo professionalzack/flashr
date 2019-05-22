@@ -3,8 +3,11 @@ from django.shortcuts import render
 #deck_create pain level pain_level issue discuss
 #deck functions w i p, commented out
 
+# Create your views here:
+# Landing
+def landing(request):
+  return render(request, 'flashr/landing.html')
 
-# Create your views here.
 #Questions
 def question_show(request, pk):
   question = Question.objects.get(pk=pk)

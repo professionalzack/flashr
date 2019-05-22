@@ -20,4 +20,5 @@ from django.urls import path
 urlpatterns = [
   path('admin/', admin.site.urls),
   path('accounts/', include('accounts.urls')),
+  path('home/', include('flashr.urls')),
 ]
