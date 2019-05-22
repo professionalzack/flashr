@@ -21,10 +21,12 @@ def deck_show(request, pk):
 def deck_create(request, tag): #is this correct?
   Deck.objects.filter(profile = user.profile).delete()
 
-  tagged_cards = Question.objects.filter(tags__content=tag) # tags__ or tags. ?
-  user_pain = Pain.objects.filter(profile = user.profile)
+  deck = Question.objects.filter(tags__content=tag) # tags__ or tags. ?
+  # user_pain = Pain.objects.filter(profile = user.profile)
 
   # pain_list = //FIND MATCHES ON Question BETWEEN user_pain AND tagged_cards
+  # SELECT * FROM (SELECT question FROM pain_omdel WHERE profile = user.profile) WHERE tags__content=tag 
+
   # //ORDER pain_list BY pain_level
   # no_pain = //ALL tagged_cards NOT IN pain_list
   # //deck = no_pain + pain_list
