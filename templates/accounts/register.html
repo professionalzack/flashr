@@ -1,43 +1,26 @@
+{% extends '../base.html' %} {% block content %}
 <h2>Register</h2>
-
 {% if error %}
 <p style="background-color: salmon; padding: 10px;">{{ error }}</p>
 {% endif %}
-
 <form action="{% url 'register' %}" method="POST">
 	{% csrf_token %}
-
 	<div>
 		<label for="username">Username</label>
 		<input type="text" name="username" required maxlength="25" minlength="2" />
 	</div>
-
 	<div>
 		<label for="email">Email</label>
 		<input type="email" name="email" required maxlength="25" minlength="2" />
 	</div>
-
 	<div>
 		<label for="password">Password</label>
-		<input
-			type="password"
-			name="password"
-			required
-			maxlength="25"
-			minlength="4"
-		/>
+		<input type="password" name="password" required maxlength="25" minlength="4" />
 	</div>
-
 	<div>
 		<label for="password2">Confirm Password</label>
-		<input
-			type="password"
-			name="password2"
-			required
-			maxlength="25"
-			minlength="4"
-		/>
+		<input type="password" name="password2" required maxlength="25" minlength="4" />
 	</div>
-
 	<input type="submit" value="Register" />
 </form>
+{% endblock %}
