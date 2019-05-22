@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=False, related_name='profile')
-    avatar = models.TextField(blank=True)
+    avatar  = models.CharField(max_length=100, null=True, blank=True)
 
 
     def __str__(self):
