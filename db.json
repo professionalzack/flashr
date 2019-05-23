@@ -1,0 +1,11 @@
+[ {"model": "auth.user", "pk": 1, "fields": {"password": "pbkdf2_sha256$150000$nlfPbZp3hjoH$k3WVtqB5zh9MPDPqBZ7An3ohxCqYxl7uIemiPaXtY84=", "last_login": "2019-05-22T23:33:40.497Z", "is_superuser": false, "username": "travis", "first_name": "", "last_name": "", "email": "travis@travis.com", "is_staff": false, "is_active": true, "date_joined": "2019-05-22T23:32:13.468Z", "groups": [], "user_permissions": []}}, 
+  {"model": "accounts.profile", "pk": 4, "fields": {"user": 1, "timer_preference": 0, "user_pic": null, "header_banner": null}},
+  {"model": "flashr.tag", "pk": 1, "fields": {"content": "HTML", "color_code": "#FF4000"}},
+  {"model": "flashr.tag", "pk": 2, "fields": {"content": "CSS", "color_code": "#2E9AFE"}},
+  {"model": "flashr.tag", "pk": 3, "fields": {"content": "JS", "color_code": "#FFFF00"}},
+  {"model": "flashr.question", "pk": 1, "fields": {"author": 4, "title": "Does a hyperlink only apply to text?", "tags": [1]}},
+  {"model": "flashr.question", "pk": 2, "fields": {"author": 4, "title": "What is semantic HTML?", "tags": [2]}},
+  {"model": "flashr.question", "pk": 3, "fields": {"author": 4, "title": "Can you create a multi colored text on a web page?", "tags": [2,1]}},
+  {"model": "flashr.question", "pk": 4, "fields": {"author": 4, "title": "What is ‘NaN’? What is its type?", "tags": [3]}},
+  {"model": "flashr.question", "pk": 5, "fields": {"author": 4, "title": "What will be the output when the following code is executed?", "content": "var x = 21;\nvar girl = function () {\nconsole.log(x);\nvar x = 20;\n};\ngirl ();", "tags": [3]}}
+]
