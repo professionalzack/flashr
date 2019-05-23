@@ -3,9 +3,12 @@
   {"model": "flashr.tag", "pk": 1, "fields": {"content": "HTML", "color_code": "#FF4000"}},
   {"model": "flashr.tag", "pk": 2, "fields": {"content": "CSS", "color_code": "#2E9AFE"}},
   {"model": "flashr.tag", "pk": 3, "fields": {"content": "JS", "color_code": "#FFFF00"}},
+  {"model": "flashr.tag", "pk": 4, "fields": {"content": "NodeJS", "color_code": "#0013FF"}},
   {"model": "flashr.question", "pk": 1, "fields": {"author": 25, "title": "Does a hyperlink only apply to text?", "tags": [1]}},
   {"model": "flashr.question", "pk": 2, "fields": {"author": 25, "title": "What is semantic HTML?", "tags": [2]}},
-  {"model": "flashr.question", "pk": 3, "fields": {"author": 25, "title": "Can you create a multi colored text on a web page?", "tags": [2,1]}},
-  {"model": "flashr.question", "pk": 4, "fields": {"author": 25, "title": "What is ‘NaN’? What is its type?", "tags": [3]}},
-  {"model": "flashr.question", "pk": 5, "fields": {"author": 25, "title": "What will be the output when the following code is executed?", "content": "var x = 21;\nvar girl = function () {\nconsole.log(x);\nvar x = 20;\n};\ngirl ();", "tags": [3]}}
+  {"model": "flashr.question", "pk": 3, "fields": {"author": 25, "title": "How many tags can be used to separate section of texts?", "tags": [1]}},
+  {"model": "flashr.question", "pk": 4, "fields": {"author": 25, "title": "Can you create a multi colored text on a web page?", "tags": [2,1]}},
+  {"model": "flashr.question", "pk": 5, "fields": {"author": 25, "title": "What is ‘NaN’? What is its type?", "tags": [3]}},
+  {"model": "flashr.question", "pk": 6, "fields": {"author": 25, "title": "What will be the output when the following code is executed?", "content": "var x = 21;\nvar girl = function () {\nconsole.log(x);\nvar x = 20;\n};\ngirl ();", "tags": [3]}},
+  {"model": "flashr.question", "pk": 7, "fields": {"author": 25, "title": "Why use NodeJs?", "tags": [4]}}
 ]
