@@ -14,12 +14,21 @@ def question_show(request, pk):
   return render(request, 'flashr/card.html', {'question': question})
 
 #Deck
-def deck_show(request, pk):
-  deck = Deck.objects.filter(profile = user.profile)
-  return render(request, 'flashr/card_deck.html', {'deck': deck})
+def deck_show(request, tag, idx):
+  question = Deck.objects.filter(profile=profile, order_idx=idx)
+  return render(request, 'flashr/card_deck.html', {'question': card, 'idx': idx})
 
-def deck_create(request, tag): #is this correct?
-  Deck.objects.filter(profile = user.profile).delete()
+def deck_next(request, tag, idx):
+  question = Deck.objects.filter(profile=profile, order_idx=(idx+1)) #does this work ?
+  return render(request, 'flashr/card_deck.html', {'question': card, 'idx': idx})
+
+def deck_previous(request, tag, idx):
+  question = Deck.objects.filter(profile=profile, order_idx=(idx-1)) #does this work ?
+  return render(request, 'flashr/card_deck.html', {'question': card, 'idx': idx})
+
+
+def deck_create(request, profile, tag): #is this correct?
+  Deck.objects.filter(profile=profile).delete()
 
   deck = Question.objects.filter(tags__content=tag) # tags__ or tags. ?
   # user_pain = Pain.objects.filter(profile = user.profile)
@@ -32,5 +41,5 @@ def deck_create(request, tag): #is this correct?
   # //deck = no_pain + pain_list
 
   for idx, card in enumerate(deck):
-    Deck.objects.create(profile=user.profile, question=deck[idx], order_idx=(idx+1))
-  return redirect('deck_show')
+    Deck.objects.create(profile=profile, question=deck[idx], order_idx=(idx+1))
+  return redirect('deck_show', profile=profile, order_idx=1)
