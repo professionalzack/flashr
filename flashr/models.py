@@ -5,6 +5,9 @@ from accounts.models import Profile
 class Tag(models.Model):
   content = models.TextField()
   color_code = models.CharField(max_length=100)
+
+  def __str__(self):
+    return self.content
   
 class Question(models.Model):
   author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='question')
