@@ -1,13 +1,14 @@
 {% extends '../base.html' %} {% block content %}
 <h1>Card</h1>
 <div class="question-card">
-    <h3>{{question}}</h3>
+    <h3>{{question.title}}</h3>
 </div>
-<form method="POST" class="answer-form">
+
+<!-- <form method="POST" class="answer-form">
 	{% csrf_token %}
 	{{ form.as_p }}
-	<button type="submit" class="save btn btn-default">Submit Answer</button>
-</form>
+	<button type="submit" class="">Submit Answer</button>
+</form> -->
 <button class="answer-toggler" onclick="showAnswer()">Show Answer</button>
 	<div class="previous-answers" id="myDIV">
 		<h3>Galaxy is on orions belt</h3>
