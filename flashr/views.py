@@ -10,7 +10,7 @@ def landing(request):
 
 #Questions
 def question_show(request, pk):
-  question = Question.objects.get(pk=pk)
+  question = Question.objects.get(id=pk)
   return render(request, 'flashr/card.html', {'question': question})
 
 #Deck
