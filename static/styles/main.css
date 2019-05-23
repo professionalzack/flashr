@@ -1,0 +1,14 @@
+.deck-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    z-index: 1;
+    width: 100vw;
+    position: fixed;
+    height: 100vh;
+}
+
+body {
+    background-color: aqua;
+}
+
