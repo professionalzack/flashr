@@ -1,3 +1,19 @@
 {% extends '../base.html' %} {% block content %}
-<h1>Landing</h1>
+
+<main>
+  <h1>FL*SHR</h1>
+  <div class="topTagsContainer">
+    <ul class="topTags">
+      <li>{% tags.id pk=1 %}</li>
+      <li>{% tags.id pk=2 %}</li>
+      <li>{% tags.id pk=3 %}</li>
+    </ul>
+  </div>
+  <div class="allTagsContainer">
+    <ul class="allTags">
+      <li>{% tags.objects.all() %}</li>
+    </ul>
+  </div>
+</main>
+
 {% endblock %}
