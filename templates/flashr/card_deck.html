@@ -1,8 +1,9 @@
 {% extends '../base.html' %} {% block content %}
 <h1>Card Deck</h1>
-<div class="deck-wrapper">
+{{ question.title }}
+{% comment %} <div class="deck-wrapper">
     <div class="previous">
-        <a href="{url 'show_deck', tag=tag, idx=(card.object_idx+1)}">
+        <a href="{url 'show_deck', tag=tag, idx=(question.object_idx - 1)}">
         Previous
     </a>
 </div>
@@ -19,5 +20,5 @@
 <button onclick="showAnswer()">Show Answer</button>
 <div class="previous-answers" id="myDIV">
   <h3>Galaxy is on orions belt</h3>
-</div>
+</div> {% endcomment %}
 {% endblock %}
