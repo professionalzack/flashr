@@ -27,6 +27,9 @@ def question_show(request, pk):
 def deck_show(request, tag, idx):
   print('deck show. Request: ', request)
   if idx <= 0: idx = 1
+  # Next
+  ## Will need to know how many questions there are in total for this tag
+  ## Add if statement for stopping going past that max tag id
   user = request.user
   question = Deck.objects.get(profile=user.profile, order_idx=idx).question
   return render(request, 'flashr/card_deck.html', {'question': question, 'tag': tag, 'idx': idx})
