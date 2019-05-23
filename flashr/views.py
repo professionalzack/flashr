@@ -1,18 +1,25 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 #deck_create needs to recieve a tag
 #deck_create pain level pain_level issue discuss
 #deck functions w i p, commented out
 
 # Create your views here:
 # Landing
+def index(request):
+      return HttpResponse("hello, world you are at card question")
+
 def landing(request):
   return render(request, 'flashr/landing.html')
 
 #Questions
-def question_show(request, pk):
-  question = Question.objects.get(id=pk)
-  return render(request, 'flashr/card.html', {'question': question})
-
+def question_show(request):
+      return render(request, 'flashr/card.html')
+# def question_show(request, pk):
+#   question = Question.objects.get(id=pk)
+#   return render(request, 'flashr/card.html', {'question': question})
+def deck_show(request):
+      return render(request, 'flashr/card_deck.html')
 #Deck
 # def deck_show(request, pk):
 #   deck = Deck.objects.filter(profile = user.profile)
