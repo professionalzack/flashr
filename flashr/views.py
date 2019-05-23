@@ -28,8 +28,8 @@ def deck_show(request, tag, idx):
   print('deck show. Request: ', request)
   if idx <= 0: idx = 1
   user = request.user
-  question_obj = Deck.objects.get(profile=user.profile, order_idx=idx).question
-  return render(request, 'flashr/card_deck.html', {'question': question_obj, 'idx': idx})
+  question = Deck.objects.get(profile=user.profile, order_idx=idx).question
+  return render(request, 'flashr/card_deck.html', {'question': question, 'tag': tag, 'idx': idx})
 
 # def deck_next(request, tag, idx):
 #   question = Deck.objects.filter(profile=profile, order_idx=(idx+1)) #does this work ?
