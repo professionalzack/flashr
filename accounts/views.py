@@ -28,6 +28,7 @@ def register(request):
           # worked !
           user = User.objects.create_user(username=username, password=password, email=email)
           user.save()
+          Profile.objects.create(user_id=user.id)
           return redirect('login')
     else:
       return render(request, 'accounts/register.html', {'error': 'Passwords do not match'})
@@ -43,7 +44,7 @@ def login(request):
 
     if user is not None:
       auth.login(request, user)
-      return render(request, 'accounts/profile.html')
+      return redirect('profile', pk=user.profile.pk)
     else:
       return render(request, 'accounts/login.html', {'error': 'Invalid Credentials...'})
 
@@ -68,7 +69,7 @@ def profile_create(request):
     return render(request, 'accounts/profile_form.html', {'form': form})
 
 @login_required
-def profile(request):
-  user = request.user
-  profile = Profile.objects.get(user=user.pk)
+def profile(request, pk):
+
+  profile = Profile.objects.get(pk=pk)
   return render(request, 'accounts/profile.html', {'profile': profile})
