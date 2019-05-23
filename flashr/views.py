@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from django.db.models import Count
 from django.http import HttpResponse
-from .models import Question, Deck
+from .models import Tag, Question, Deck
+
 #deck_create needs to recieve a tag
 #deck_create pain level pain_level issue discuss
 #deck functions w i p, commented out
@@ -11,7 +13,9 @@ def index(request):
       return HttpResponse("hello, world you are at card question")
 
 def landing(request):
-  return render(request, 'flashr/landing.html')
+  all_tags = Tag.objects.all().annotate(num_questions=Count('question')).order_by('-num_questions')
+  top_tags = all_tags[0:3]
+  return render(request, 'flashr/landing.html', {'all_tags': all_tags, 'top_tags': top_tags})
 
 #Questions
 # def question_show(request):

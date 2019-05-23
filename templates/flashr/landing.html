@@ -1,19 +1,23 @@
-{% extends '../base.html' %} {% block content %}
+{% extends '../base.html' %} 
 
+{% block content %}
 <main>
   <h1>FL*SHR</h1>
   <div class="topTagsContainer">
-    <ul class="topTags">
-      <li>{% tags.id pk=1 %}</li>
-      <li>{% tags.id pk=2 %}</li>
-      <li>{% tags.id pk=3 %}</li>
+    <h2>Top Tags</h2>
+    <ul class="top-tags">
+      {% for tag in top_tags %}
+        <li>{{ tag.content }}</li>
+      {% endfor %}
     </ul>
   </div>
   <div class="allTagsContainer">
-    <ul class="allTags">
-      <li>{% tags.objects.all() %}</li>
+    <h2>All Tags</h2>
+    <ul class="all-tags">
+      {% for tag in all_tags %}
+        <li>{{ tag.content }}</li>
+      {% endfor %}
     </ul>
   </div>
 </main>
-
 {% endblock %}
