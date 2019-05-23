@@ -1,3 +1,23 @@
 {% extends '../base.html' %} {% block content %}
 <h1>Card Deck</h1>
+<div class="deck-wrapper">
+    <div class="previous">
+        <a href="{url 'show_deck', tag=tag, idx=(card.object_idx+1)}">
+        Previous
+    </a>
+</div>
+    <div class="next">Next</div>
+</div>
+<div class="question-card">
+  <h3>{{ question }}</h3>
+</div>
+<form method="POST" class="answer-form">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="save btn btn-default">Submit Answer</button>
+</form>
+<button onclick="showAnswer()">Show Answer</button>
+<div class="previous-answers" id="myDIV">
+  <h3>Galaxy is on orions belt</h3>
+</div>
 {% endblock %}
