@@ -18,16 +18,19 @@ def landing(request):
 #Questions
 def question_show(request, pk):
   question = Question.objects.get(pk=pk)
-  return render(request, 'flashr/card.html', {'question': question})
+  card_tags = question.tags.all()
+  return render(request, 'flashr/card.html', {'question': question, 'card_tags': card_tags})
 
 #Deck
 ##show one deck item
 def deck_show(request, tag, idx):
   user = request.user 
   deck = Deck.objects.filter(profile=user.profile) #grabs the subquery so only one db delve
-  card = deck.get(order_idx=idx).question #gets the single card in question
   count = deck.count() #counts the cards obv
-  return render(request, 'flashr/card_deck.html', {'question': card, 'tag': tag, 'idx': idx, 'count':count})
+  card = deck.get(order_idx=idx).question #gets the single card in question
+  card_tags = card.tags.all() #gets all the tags the question has
+  values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'idx': idx, 'count':count}
+  return render(request, 'flashr/card.html', values)
 
 def deck_create(request, tag): 
   user = request.user 
