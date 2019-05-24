@@ -24,20 +24,23 @@ def question_show(request, pk):
 #Deck
 ##show one deck item
 def deck_show(request, tag, idx):
-  user = request.user 
+  # # Last question pseudocode
+  # if id is last one:
+  #   redirect success template, success value
+  user = request.user
   deck = Deck.objects.filter(profile=user.profile) #grabs the subquery so only one db delve
   count = deck.count() #counts the cards obv
   card = deck.get(order_idx=idx).question #gets the single card in question
   card_tags = card.tags.all() #gets all the tags the question has
-  values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'idx': idx, 'count':count}
+  values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'deck_idx': idx, 'count': count}
   return render(request, 'flashr/card.html', values)
 
-def deck_create(request, tag): 
+def deck_create(request, tag):
   user = request.user 
   Deck.objects.filter(profile=user.profile).delete()
   tag.lower()
   deck = Question.objects.filter(tags__content=tag)
-  
+  # To Do: Sort Deck by User Pain here
   for idx, card in enumerate(deck):
     Deck.objects.create(profile=user.profile, question=deck[idx], order_idx=(idx+1))
   return redirect('deck_show', tag=tag, idx=1)
