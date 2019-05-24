@@ -11,7 +11,7 @@
 		<nav>
 			<a href="/">Home</a>
 			{% if user.is_authenticated %}
-				<a href="{% url 'profile' %}">Profile</a>
+				<a href="{% url 'profile' pk=user.profile.id %}">Profile</a>
 				<a href="{% url 'logout' %}">Logout</a>
 			{% else %}
 				<a href="{% url 'login' %}">Login</a>
