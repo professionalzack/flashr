@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from accounts.models import Profile
 
@@ -34,7 +35,7 @@ class Pain(models.Model):
   profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='pain')
   question = models.ForeignKey(Question, on_delete=models. CASCADE, related_name='pain')
   level = models.IntegerField()
-  time_stamp = models.DateField(null=True, blank=True) # use .auto_now_add() in views at pain_create
+  time_stamp = models.DateTimeField(default=timezone.now)
 
   def __str__(self):
     return self.level
