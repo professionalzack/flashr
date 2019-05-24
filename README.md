@@ -79,10 +79,12 @@ When one of us were stuck, we approached the problem as team. Having one driver 
 
 - Understanding tags and python cannot be written within.
 
-- Scaling down our project to MVP. 
+- Scaling down our project to MVP.
 
 ### Challenges
 
 - Creating the deck routes, view, and logic
   
+  - Make a deck model that will give a user a personalized deck based on their pain level. 
+
 - The community aspect.
