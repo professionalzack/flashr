@@ -27,8 +27,8 @@ class Deck(models.Model):
   question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='deck')
   order_idx = models.IntegerField()
 
-  def __str__(self):
-    return self.order_idx
+  # def __str__(self):
+  #   return self.order_idx
     
 class Pain(models.Model):
   profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='pain')
