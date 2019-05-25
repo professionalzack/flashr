@@ -1,11 +1,168 @@
-* {
+*{
+  /* border: 1px solid blue; */
+  font-family: 'Roboto Mono', monospace;
   padding: 0;
-  margin: 0;
 }
 
+
+/* Base.html */
 body {
-  background-color: aqua;
+  background-color: white;
+  margin: 2.5vh 5vw;
 }
+
+.base-top{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.logo-block{
+  display: flex;
+}
+
+.fa-asterisk{
+  margin: auto 0;
+}
+
+nav{
+  margin: auto 0;
+}
+
+nav > a{
+  margin: 0 1vw;
+}
+
+footer{
+  position: fixed;
+  bottom: 5vh;
+  margin: 0 40vw 0 40vw;
+  height: auto;
+}
+
+/* landing.html */
+.landing-header{
+  text-align: center;
+  font-size: 15vh;
+  margin: 0 0 2vh 0;
+}
+
+.top-tags-container{
+  /* display: flex;
+  flex-direction: row;
+  justify-content: space-around; */
+}
+
+.top-tags{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.top-tags > li{
+  list-style: none;
+  text-align: center;
+  height: 30vh;
+  width: 30vh;
+  border: 1px solid red;
+  background-color: white;
+}
+
+.all-tags{
+  display: flex;
+  flex-direction: row;
+}
+
+.all-tags > li{
+  list-style: none;
+  text-align: center;
+}
+
+/* login.html */
+.login-page{
+  display: flex;
+  flex-direction: column;
+}
+
+/* profile.html */
+.profile-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-info{
+  display: flex;
+  flex-direction: row;
+}
+
+.username{
+  display: flex;
+  margin: auto 2vw;
+}
+
+.user-else{
+  display: flex;
+  flex-direction: column;
+  margin: auto 2vw;
+}
+
+.profile-img{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.profile-container > p {
+  margin: 1vh;
+}
+
+.profile_body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile_body > ul > li:nth-child(1){
+  z-index: 0;
+  list-style: none;
+  width: 80vw;
+  height: 10vh;
+  margin: 1vh auto;
+  background-color: #d1d1d1;
+  border: 2px solid black;
+}
+
+.profile_body > ul > li:nth-child(2){
+  z-index: 2;
+  list-style: none;
+  width: 80vw;
+  height: 10vh;
+  margin: 1vh auto;
+  border: 2px solid black;
+  background-color: white;
+}
+
+/* register.html */
+
+.input-fields{
+  display: flex;
+  flex: column;
+  justify-content: space-between;
+  width: 30vw;
+}
+
+.input-fields > label {
+  
+}
+
+
+
+
+
+
+
+/* 
 
 .deck-wrapper {
     display: flex;
@@ -30,8 +187,4 @@ body {
   font-size: .75em;
   margin: 4px 2px;
   border-radius: 10px;
-}
-
-footer {
-  margin-top: 40px;
-}
+} */

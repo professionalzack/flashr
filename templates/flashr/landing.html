@@ -2,17 +2,15 @@
 
 {% block content %}
 <main>
-  <h1>FL*SHR</h1>
-  <div class="topTagsContainer">
-    <h2>Top Tags</h2>
+  <h1 class="landing-header">FL*SHR</h1>
+  <div class="top-tags-container">
     <ul class="top-tags">
       {% for tag in top_tags %}
         <li><a href="{% url 'deck_create' tag=tag.content %}">{{ tag.content }}</a></li>
       {% endfor %}
     </ul>
   </div>
-  <div class="allTagsContainer">
-    <h2>All Tags</h2>
+  <div class="all-tags-container">
     <ul class="all-tags">
       {% for tag in all_tags %}
         <li><a href="{% url 'deck_create' tag=tag.content %}">{{ tag.content }}</a></li>
@@ -20,4 +18,9 @@
     </ul>
   </div>
 </main>
+<footer>
+  <i class="fab fa-github-square fa-2x"></i>
+  <i class="fab fa-facebook-square fa-2x"></i>
+  <i class="fab fa-instagram fa-2x"></i>
+</footer>
 {% endblock %}
