@@ -1,29 +1,29 @@
 {% extends '../base.html' %} 
 
 {% block content %}
-
-  {% if deck_idx %}
-    <div class="deck-wrapper">
-      <div class="previous">
-        <a href="{% url 'deck_show' tag=tag idx=deck_idx|add:'-1' %}">Previous</a>
-      </div>
-      <div class="next">
-        Next
-      </div>
-    </div>
-  {% endif %}
-
+{% if deck_idx %}
+  <h1>Deck Card</h1>
 {% else %}
-
-  {{ question.title }}
-  {% for tag in card_tags %}
-    <a style="text-decoration:none;" href="{% url 'deck_create' tag=tag.content %}">
-      <button class="mini-tag" style="background-color:{{tag.color_code}};">{{ tag.content }}</button>
-    </a>
-  {% endfor %}
-
+  <h1>Question Card</h1>
 {% endif %}
 
+{{ question.title }}
+{% for tag in card_tags %}
+  <a style="text-decoration:none;" href="{% url 'deck_create' tag=tag.content %}">
+    <button class="mini-tag" style="background-color:{{tag.color_code}};">{{ tag.content }}</button>
+  </a>
+{% endfor %}
+
+{% if deck_idx %}
+  <div class="deck-wrapper">
+    <div class="previous">
+      <a href="{% url 'deck_show' tag=tag idx=deck_idx|add:'-1' %}">Previous</a>
+    </div>
+    <div class="next">
+      Next
+    </div>
+  </div>
+{% endif %}
 
 {% comment %}
 <form method="POST" class="answer-form">
