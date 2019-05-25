@@ -7,7 +7,7 @@
     <h2>Top Tags</h2>
     <ul class="top-tags">
       {% for tag in top_tags %}
-        <li>{{ tag.content }}</li>
+        <li><a href="{% url 'deck_create' tag=tag.content %}">{{ tag.content }}</a></li>
       {% endfor %}
     </ul>
   </div>
@@ -15,7 +15,7 @@
     <h2>All Tags</h2>
     <ul class="all-tags">
       {% for tag in all_tags %}
-        <li>{{ tag.content }}</li>
+        <li><a href="{% url 'deck_create' tag=tag.content %}">{{ tag.content }}</a></li>
       {% endfor %}
     </ul>
   </div>
