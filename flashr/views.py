@@ -1,7 +1,10 @@
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
-from django.db.models import Count
 from django.http import HttpResponse
-from .models import Tag, Question, Deck
+import simplejson as json
+from django.db.models import Count
+from .models import Tag, Question, Deck, Pain
+
 
 #deck_create needs to receive a tag
 #deck_create pain level pain_level issue discuss
@@ -32,7 +35,7 @@ def deck_show(request, tag, idx):
   count = deck.count() #counts the cards obv
   card = deck.get(order_idx=idx).question #gets the single card in question
   card_tags = card.tags.all() #gets all the tags the question has
-  values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'deck_idx': idx, 'count': count}
+  values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'deck_idx': idx}
   return render(request, 'flashr/card.html', values)
 
 def deck_create(request, tag):
@@ -44,3 +47,21 @@ def deck_create(request, tag):
   for idx, card in enumerate(deck):
     Deck.objects.create(profile=user.profile, question=deck[idx], order_idx=(idx+1))
   return redirect('deck_show', tag=tag, idx=1)
+
+#PAIN
+def send_pain(request):
+  print(request.POST)
+  if request.method == 'POST':
+    profile = request.user.profile
+    pain_level = request.POST['level']
+    question = Question.objects.get(id=request.POST['question_id'])
+    Pain.objects.create(level=pain_level, question=question, profile=profile)
+
+    response = {}
+    response['status'] = 200
+    response['pain_level'] = pain_level
+    # response['data'] = new_pain
+
+    return HttpResponse(json.dumps(response), content_type="application/json")
+  else:
+    return HttpResponse(json.dumps({"no info": "wasnt a post"}), content_type="application/json")

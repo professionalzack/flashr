@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import now
 from accounts.models import Profile
 
 # Create your models here.
@@ -34,10 +35,11 @@ class Pain(models.Model):
   profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='pain')
   question = models.ForeignKey(Question, on_delete=models. CASCADE, related_name='pain')
   level = models.IntegerField()
-  time_stamp = models.DateField(null=True, blank=True) # use .auto_now_add() in views at pain_create
+  time_stamp = models.DateTimeField(default=now, blank=True)
 
-  def __str__(self):
-    return self.level
+#cannot return an integer
+  # def __str__(self):
+  #   return self.level
 
 class Answer(models.Model):
   author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='answer')

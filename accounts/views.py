@@ -69,7 +69,7 @@ def profile_create(request):
     return render(request, 'accounts/profile_form.html', {'form': form})
 
 @login_required
-def profile(request, pk):
+def profile(request):
 
-  profile = Profile.objects.get(pk=pk)
+  profile = request.user.profile
   return render(request, 'accounts/profile.html', {'profile': profile})
