@@ -15,11 +15,7 @@ class Question(models.Model):
   title = models.CharField(max_length=100)
   content = models.TextField(null=True, blank=True)
   tags = models.ManyToManyField(Tag, blank=True)
-  #tags and questions must exist before being combined
-    #question = //whatever from the form data
-    #question.save()
-    #tag = Tag.objects.create(content='HTML', color_code=//color function thing)
-    #question.tags.add(tag)
+
   def __str__(self):
     return self.title
 
