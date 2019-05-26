@@ -1,9 +1,10 @@
 from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ObjectDoesNotExist 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import simplejson as json
 from django.db.models import Count
-from .models import Tag, Question, Deck, Pain
+from .models import Tag, Question, Deck, Pain, Answer
 
 
 #deck_create needs to receive a tag
@@ -32,11 +33,14 @@ def deck_show(request, tag, idx):
   count = deck.count() #counts the cards obv
   card = deck.get(order_idx=idx).question #gets the single card in question
   card_tags = card.tags.all() #gets all the tags the question has
-  # pain = Pain.objects.filter(profile=user.profile, question=card)[0:1].get() | 'none'
   if idx == count:
     idx = 'last'
   values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'deck_idx': idx}
-
+  try: #updates values to include most recent pain if applicable
+    pain = Pain.objects.filter(profile=user.profile, question=card).order_by('-time_stamp')[0:1].get()
+    values['pain'] = pain
+  except ObjectDoesNotExist: #creates a throwaway variable if no pain was found
+    pain = 'pain'
   return render(request, 'flashr/card.html', values)
 
 def deck_create(request, tag):
@@ -61,7 +65,24 @@ def send_pain(request):
     response = {}
     response['status'] = 200
     response['pain_level'] = pain_level
-    # response['data'] = new_pain
+
+    return HttpResponse(json.dumps(response), content_type="application/json")
+  else:
+    return HttpResponse(json.dumps({"erryr": "wasnt a post"}), content_type="application/json")
+
+def answer_me(request):
+  print(request.POST)
+  if request.method == 'POST':
+    profile = request.user.profile
+    content = request.POST['content']
+    public = ((True, False) [int(request.POST['public']) == 2 ])
+    question = Question.objects.get(id=request.POST['question_id'])
+    Answer.objects.create(content=content, public=public, question=question, author=profile)
+
+    response = {}
+    response['status'] = 200
+    response['content'] = content
+    response['public'] = public
 
     return HttpResponse(json.dumps(response), content_type="application/json")
   else:
