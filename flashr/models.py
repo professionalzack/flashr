@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from accounts.models import Profile
 
@@ -14,11 +15,7 @@ class Question(models.Model):
   title = models.CharField(max_length=100)
   content = models.TextField(null=True, blank=True)
   tags = models.ManyToManyField(Tag, blank=True)
-  #tags and questions must exist before being combined
-    #question = //whatever from the form data
-    #question.save()
-    #tag = Tag.objects.create(content='HTML', color_code=//color function thing)
-    #question.tags.add(tag)
+
   def __str__(self):
     return self.title
 
@@ -34,17 +31,17 @@ class Pain(models.Model):
   profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='pain')
   question = models.ForeignKey(Question, on_delete=models. CASCADE, related_name='pain')
   level = models.IntegerField()
-  time_stamp = models.DateField(null=True, blank=True) # use .auto_now_add() in views at pain_create
+  time_stamp = models.DateTimeField(default=timezone.now)
 
   def __str__(self):
-    return self.level
+    return str(f'{self.time_stamp}: pain {self.level} - q {self.question.id}')
 
 class Answer(models.Model):
   author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='answer')
   question = models.ForeignKey(Question, on_delete=models. CASCADE, related_name='answer')
   public = models.BooleanField(default=False)
   content = models.TextField()
+  time_stamp = models.DateTimeField(default=timezone.now)
 
   def __str__(self):
     return self.content
-
