@@ -98,7 +98,7 @@ def send_pain(request):
     return HttpResponse(json.dumps({"error": "wasnt a POST request"}), content_type="application/json")
 
 # Send Answer API Endpoint
-def answer_me(request):
+def send_answer(request):
   print(request.POST)
   if request.method == 'POST':
     profile = request.user.profile
