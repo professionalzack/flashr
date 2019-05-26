@@ -38,14 +38,14 @@ class Pain(models.Model):
   time_stamp = models.DateTimeField(default=timezone.now)
 
   def __str__(self):
-    return self.level
+    return str(f'{self.time_stamp}: pain {self.level} - q {self.question.id}')
 
 class Answer(models.Model):
   author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='answer')
   question = models.ForeignKey(Question, on_delete=models. CASCADE, related_name='answer')
   public = models.BooleanField(default=False)
   content = models.TextField()
+  time_stamp = models.DateTimeField(default=timezone.now)
 
   def __str__(self):
     return self.content
-
