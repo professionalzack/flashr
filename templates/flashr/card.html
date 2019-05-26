@@ -7,6 +7,8 @@
   <h1>Question Card</h1>
 {% endif %}
 
+
+<h4 class="question" id={{question.id}}></h4>
 {% for tag in card_tags %}
 <div>
   <article
@@ -44,6 +46,7 @@
 </div>
 {% endfor %}
 
+
 {% if deck_idx %}
   <div class="deck-wrapper">
     <div class="previous">
@@ -78,6 +81,15 @@
     </div>
   </form>
 {% endif %}
+
+<div class="pain-chart" id={{csrf_token}}>
+	<button class="pain-btn" id="pain1" value="1">pain1</button>
+	<button class="pain-btn" id="pain2" value="2">pain2</button>
+	<button class="pain-btn" id="pain3" value="3">pain3</button>
+	<button class="pain-btn" id="pain4" value="4">pain4</button>
+	<button class="pain-btn" id="pain5" value="5">pain5</button>
+</div>
+
 
 {% comment %}
 <form method="POST" class="answer-form">
