@@ -2,7 +2,7 @@
 
 {% block content %}
 {% if deck_idx %}
-  <h1>Deck Card</h1>
+  <h1>Deck Card {{ deck_idx }} </h1> 
 {% else %}
   <h1>Question Card</h1>
 {% endif %}
@@ -47,10 +47,18 @@
 {% if deck_idx %}
   <div class="deck-wrapper">
     <div class="previous">
-      <a href="{% url 'deck_show' tag=tag idx=deck_idx|add:'-1' %}">Previous</a>
+      {% if deck_idx > 1 %}
+        <a href="{% url 'deck_show' tag=tag idx=deck_idx|add:'-1' %}">Previous</a>
+      {% else %}
+        <p style='color:grey'>Previous</p>      
+      {% endif %} 
     </div>
     <div class="next">
-      Next
+      {% if deck_idx == 'last' %}  
+        <a onclick="alert('congratulations, you have completed the deck'); window.location.href='{% url 'profile' %}'">Complete Deck</a>
+      {% else %}
+        <a href="{% url 'deck_show' tag=tag idx=deck_idx|add:'+1' %}">Next</a>
+      {% endif %}
     </div>
   </div>
   <form class="answerform">

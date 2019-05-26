@@ -32,6 +32,10 @@ def deck_show(request, tag, idx):
   count = deck.count() #counts the cards obv
   card = deck.get(order_idx=idx).question #gets the single card in question
   card_tags = card.tags.all() #gets all the tags the question has
+  print ('compare: ', idx, count)
+  if idx == count:
+    idx = 'last'
+  print('new index', idx)
   values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'deck_idx': idx, 'count': count}
   return render(request, 'flashr/card.html', values)
 
