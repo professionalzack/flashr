@@ -1,29 +1,85 @@
-{% extends '../base.html' %} 
+{% extends '../base.html' %}
 
 {% block content %}
 {% if deck_idx %}
-  <h1>Deck Card</h1>
+  <h1>Deck Card {{ deck_idx }} </h1> 
 {% else %}
   <h1>Question Card</h1>
 {% endif %}
 
-<h4 class="question" id={{question.id}}>{{ question.title }}</h4>
+
+<h4 class="question" id={{question.id}}></h4>
 {% for tag in card_tags %}
-  <a style="text-decoration:none;" href="{% url 'deck_create' tag=tag.content %}">
-    <button class="mini-tag" style="background-color:{{tag.color_code}};">{{ tag.content }}</button>
-  </a>
+<div>
+  <article
+    class="br2 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw5 center"
+  >
+    <img
+      src="http://placekitten.com/g/600/300"
+      class="db w-100 br2 br--top"
+      alt="Photo of a kitten looking menacing."
+    />
+    <div class="pa2 ph3-ns pb3-ns">
+      <div class="dt w-100 mt1">
+        <div class="dtc">
+          <h1 class="f5 f4-ns mv0">Question</h1>
+        </div>
+        <div class="dtc tr">
+          <a
+            style="text-decoration:none;"
+            href="{% url 'deck_create' tag=tag.content %}"
+          >
+            <button
+              class="mini-tag"
+              style="background-color:{{ tag.color_code }};"
+            >
+              {{ tag.content }}
+            </button>
+          </a>
+        </div>
+      </div>
+      <p class="f6 lh-copy measure mt2 mid-gray">
+        {{ question.title }}
+      </p>
+    </div>
+  </article>
+</div>
 {% endfor %}
 
 
 {% if deck_idx %}
   <div class="deck-wrapper">
     <div class="previous">
-		<a href="{% url 'deck_show' tag=tag idx=deck_idx|add:'-1' %}">Previous</a>
+      {% if deck_idx > 1 %}
+        <a href="{% url 'deck_show' tag=tag idx=deck_idx|add:'-1' %}">Previous</a>
+      {% else %}
+        <p style='color:grey'>Previous</p>      
+      {% endif %} 
     </div>
     <div class="next">
-      Next
+      {% if deck_idx == 'last' %}  
+        <a onclick="alert('congratulations, you have completed the deck'); window.location.href='{% url 'profile' %}'">Complete Deck</a>
+      {% else %}
+        <a href="{% url 'deck_show' tag=tag idx=deck_idx|add:'+1' %}">Next</a>
+      {% endif %}
     </div>
   </div>
+  <form class="answerform">
+    <div class="measure">
+      <label for="name" class="f6 b db mb2"
+        >Answer <span class="normal black-60">(optional)</span></label
+      >
+      <input
+        id="name"
+        class="input-reset ba b--black-20 pa2 mb2 db w-100"
+        type="text"
+        aria-describedby="name-desc"
+      />
+      <small id="name-desc" class="f6 black-60 db mb2"
+        >Write the answer in code form with explainations.</small
+      >
+    </div>
+  </form>
 {% endif %}
 
 <div class="pain-chart" id={{csrf_token}}>
@@ -37,13 +93,13 @@
 
 {% comment %}
 <form method="POST" class="answer-form">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<button type="submit" class="">Submit Answer</button>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="">Submit Answer</button>
 </form>
 <button class="answer-toggler" onclick="showAnswer()">Show Answer</button>
-	<div class="previous-answers" id="myDIV">
-		<h3>Galaxy is on orions belt</h3>
-	</div>
-  {% endcomment %}
+<div class="previous-answers" id="myDIV">
+  <h3>Galaxy is on orions belt</h3>
+</div>
+{% endcomment %}
 {% endblock %}

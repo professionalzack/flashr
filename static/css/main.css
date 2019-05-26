@@ -1,20 +1,165 @@
-* {
+*{
+  /* border: 1px solid blue; */
+  font-family: 'Roboto Mono', monospace;
   padding: 0;
-  margin: 0;
 }
 
+
+/* Base.html */
 body {
-  background-color: aqua;
+  background-color: white;
+  margin: 2.5vh 5vw;
+}
+
+.base-top{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.logo-block{
+  display: flex;
+}
+
+.fa-asterisk{
+  margin: auto 0;
+}
+
+nav{
+  margin: auto 0;
+}
+
+nav > a{
+  margin: 0 1vw;
+}
+
+footer{
+  position: fixed;
+  bottom: 5vh;
+  margin: 0 40vw 0 40vw;
+  height: auto;
+}
+
+/* landing.html */
+.landing-header{
+  text-align: center;
+  font-size: 15vh;
+  margin: 0 0 2vh 0;
+}
+
+.top-tags-container{
+  /* display: flex;
+  flex-direction: row;
+  justify-content: space-around; */
+}
+
+.top-tags{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.top-tags > li{
+  list-style: none;
+  text-align: center;
+  height: 30vh;
+  width: 30vh;
+  border: 1px solid red;
+  background-color: white;
+}
+
+.all-tags{
+  display: flex;
+  flex-direction: row;
+}
+
+.all-tags > li{
+  list-style: none;
+  text-align: center;
+}
+
+/* login.html */
+.login-page{
+  display: flex;
+  flex-direction: column;
+}
+
+/* profile.html */
+.profile-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-info{
+  display: flex;
+  flex-direction: row;
+}
+
+.username{
+  display: flex;
+  margin: auto 2vw;
+}
+
+.user-else{
+  display: flex;
+  flex-direction: column;
+  margin: auto 2vw;
+}
+
+.profile-img{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.profile-container > p {
+  margin: 1vh;
+}
+
+.profile_body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile_body > ul > li:nth-child(1){
+  z-index: 0;
+  list-style: none;
+  width: 80vw;
+  height: 10vh;
+  margin: 1vh auto;
+  background-color: #d1d1d1;
+  border: 2px solid black;
+}
+
+.profile_body > ul > li:nth-child(2){
+  z-index: 2;
+  list-style: none;
+  width: 80vw;
+  height: 10vh;
+  margin: 1vh auto;
+  border: 2px solid black;
+  background-color: white;
+}
+
+/* register.html */
+
+.input-fields{
+  display: flex;
+  flex: column;
+  justify-content: space-between;
+  width: 30vw;
+}
+
+.input-fields > label {
+  
 }
 
 .deck-wrapper {
     display: flex;
-    justify-content: space-between;
-    align-content: center;
-    z-index: 1;
-    width: 100vw;
-    position: fixed;
-    height: 100vh;
+    justify-content: space-evenly;
+
 }
 
 .mini-tag {
@@ -30,8 +175,137 @@ body {
   font-size: .75em;
   margin: 4px 2px;
   border-radius: 10px;
+
 }
 
+/* 
 footer {
   margin-top: 40px;
 }
+
+* deck card CSS *
+.answerform {
+    bordercolor: solid black 2px;
+}
+
+.ba {
+    border-style: solid;
+    border-width: 1px;
+}
+
+.b--black-10 {
+    border-color: rgba(0, 0, 0, .1);
+}
+
+.br2 {
+    border-radius: .25rem;
+}
+
+.br--top {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.db {
+    display: block;
+}
+
+.dt {
+    display: table;
+}
+
+.dtc {
+    display: table-cell;
+}
+
+.lh-copy {
+    line-height: 1.5;
+}
+
+.mw5 {
+    max-width: 16rem;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.dark-gray {
+    color: #333;
+}
+
+.mid-gray {
+    color: #555;
+}
+
+.pa2 {
+    padding: .5rem;
+}
+
+.mt1 {
+    margin-top: .25rem;
+}
+
+.mt2 {
+    margin-top: .5rem;
+}
+
+.mv0 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.mv4 {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.tr {
+    text-align: right;
+}
+
+.f5 {
+    font-size: 1rem;
+}
+
+.f6 {
+    font-size: .875rem;
+}
+
+.measure {
+    max-width: 30em;
+}
+
+.center {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media screen and (min-width: 30em) {
+    .pb3-ns {
+        padding-bottom: 1rem;
+    }
+
+    .ph3-ns {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .f4-ns {
+        font-size: 1.25rem;
+    }
+}
+
+@media screen and (min-width: 30em) and (max-width: 60em) {
+    .w-50-m {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 60em) {
+    .w-25-l {
+        width: 25%;
+    }
+}
+} 
+*/
