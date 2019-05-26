@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import simplejson as json
-from .models import Tag, Question, Deck, Pain, Answer
+from .models import Tag, Question, Deck, Pain, Answer, Vote
 
 # Landing
 def index(request):
@@ -95,7 +95,7 @@ def send_pain(request):
 
     return HttpResponse(json.dumps(response), content_type="application/json")
   else:
-    return HttpResponse(json.dumps({"error": "wasnt a POST request"}), content_type="application/json")
+    return HttpResponse(json.dumps({"error": "wasn't a POST request"}), content_type="application/json")
 
 # Send Answer API Endpoint
 def send_answer(request):
@@ -114,4 +114,36 @@ def send_answer(request):
 
     return HttpResponse(json.dumps(response), content_type="application/json")
   else:
-    return HttpResponse(json.dumps({"no info": "wasnt a POST request"}), content_type="application/json")
+    return HttpResponse(json.dumps({"no info": "wasn't a POST request"}), content_type="application/json")
+
+# Send Vote API Endpoint
+def send_vote(request):
+  # print(request.POST)
+  if request.method == 'POST':
+    profile = request.user.profile
+    vote_choice = request.POST['vote']
+    answer = Answer.objects.get(id=request.POST['answer_id'])
+
+    response = {}
+    # Validate the vote value for the expected values
+    if (vote_choice == 1) or (vote_choice == -1):
+      # Delete any existing votes from this user for this answer
+      Vote.objects.filter(profile=user.profile, answer=answer).delete()
+      # Add the user's vote for this question
+      Vote.objects.create(vote=vote_choice, question=question, profile=profile)
+      response['status'] = 200
+      response['vote'] = vote_choice
+    elif (vote_choice == 0):
+      # 0 means they are 'un-voting', ie taking back a vote
+      # Delete any existing votes from this user for this answer
+      Vote.objects.filter(profile=user.profile, answer=answer).delete()
+      response['status'] = 200
+      response['vote'] = vote_choice
+    else:
+      # Not a valid vote
+      response['status'] = 400
+      response['error'] = "Invalid vote option"
+    
+    return HttpResponse(json.dumps(response), content_type="application/json")
+  else:
+    return HttpResponse(json.dumps({"error": "wasn't a POST request"}), content_type="application/json")

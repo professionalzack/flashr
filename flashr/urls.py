@@ -8,5 +8,5 @@ urlpatterns = [
   path('deck/<slug:tag>/<int:idx>', views.deck_show, name='deck_show'),
   path('pain', views.send_pain, name='send_pain'),
   path('answer', views.send_answer, name='send_answer'),
-
+  path('vote', views.send_vote, name='send_vote'),
 ]
