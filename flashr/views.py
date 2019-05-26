@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.db.models import Count, OuterRef, Subquery, F
 from django.http import HttpResponse
@@ -16,6 +17,7 @@ def landing(request):
   return render(request, 'flashr/landing.html', {'all_tags': all_tags, 'top_tags': top_tags})
 
 #Questions
+@login_required
 def question_show(request, pk):
   question = Question.objects.get(pk=pk)
   card_tags = question.tags.all()
@@ -23,6 +25,7 @@ def question_show(request, pk):
 
 #Deck
 ##show one deck item
+@login_required
 def deck_show(request, tag, idx):
   # # Last question pseudocode
   # if id is last one:
@@ -43,6 +46,7 @@ def deck_show(request, tag, idx):
   values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'deck_idx': idx, 'count': count, 'pain': pain}
   return render(request, 'flashr/card.html', values)
 
+@login_required
 def deck_create(request, tag):
   user = request.user
   tag.lower()
