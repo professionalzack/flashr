@@ -3,6 +3,7 @@
 {% block content %}
 {% if deck_idx %}
   <h1>Deck Card</h1>
+  <p>{{ pain }}</p>
 {% else %}
   <h1>Question Card</h1>
 {% endif %}
@@ -17,7 +18,7 @@
 {% if deck_idx %}
   <div class="deck-wrapper">
     <div class="previous">
-      <a href="{% url 'deck_show' tag=tag idx=idx|add:"-1" %}">Previous</a>
+      <a href="{% url 'deck_show' tag=tag idx=deck_idx|add:'-1' %}">Previous</a>
     </div>
     <div class="next">
       Next
