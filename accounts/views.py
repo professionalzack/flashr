@@ -44,7 +44,7 @@ def login(request):
 
     if user is not None:
       auth.login(request, user)
-      return redirect('profile', pk=user.profile.pk)
+      return redirect('profile')
     else:
       return render(request, 'accounts/login.html', {'error': 'Invalid Credentials...'})
 

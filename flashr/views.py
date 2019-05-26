@@ -27,19 +27,16 @@ def question_show(request, pk):
 #Deck
 ##show one deck item
 def deck_show(request, tag, idx):
-  # # Last question pseudocode
-  # if id is last one:
-  #   redirect success template, success value
   user = request.user
   deck = Deck.objects.filter(profile=user.profile) #grabs the subquery so only one db delve
   count = deck.count() #counts the cards obv
   card = deck.get(order_idx=idx).question #gets the single card in question
   card_tags = card.tags.all() #gets all the tags the question has
-  print ('compare: ', idx, count)
+  # pain = Pain.objects.filter(profile=user.profile, question=card)[0:1].get() | 'none'
   if idx == count:
     idx = 'last'
-  print('new index', idx)
-  values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'deck_idx': idx, 'count': count}
+  values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'deck_idx': idx}
+
   return render(request, 'flashr/card.html', values)
 
 def deck_create(request, tag):
