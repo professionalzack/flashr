@@ -59,7 +59,8 @@ def deck_create(request, tag):
   # Create a subquery that gets its id # from the calling query. Gets a users latest pain for a specific question
   # values('level')[:1] extracts just the level, trimmed to the latest one based on the order_by sort
   # Using '.latest()', '[0]', and '.level' don't work since they trigger immediate evaluation in the subquery
-  user_pain = Pain.objects.filter(profile=user.profile,question__id=OuterRef('pk')).order_by('-time_stamp').values('level')[:1]
+  pains = Pain.objects.all().prefetch_related('profile', 'question') # get once and cache in pains variable
+  user_pain = pains.filter(profile=user.profile,question__id=OuterRef('pk')).order_by('-time_stamp').values('level')[:1]
   # Use the subquery to add the users latest pain to all of the questions with the deck tag.
   deck_pain = deck.annotate(user_pain=Subquery(user_pain))#.values('user_pain')
   # Now sort but user pain, descending, with nulls first
