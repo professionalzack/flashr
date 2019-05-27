@@ -3,20 +3,21 @@
 {% block community %}
 
 <h1>Test Community</h1>
-<p>{{ question.id }}</p>
+{% comment %} <p>{{ question.id }}</p> {% endcomment %}
 
-<div class="answer-holder">
+<div class="answers-holder">
   {% for answer in answers %}
     <div class="answer-item">
-      <div class="vote-holder">
+      <div class="vote-content">
         <i class="far fa-arrow-alt-circle-up"></i>
         <p>{{ answer.total_vote }}</p>
         <i class="far fa-arrow-alt-circle-down"></i>
       </div>
-      <p>{{ answer.content }}</p>
-
-      {% comment %} <i class="fas fa-arrow-alt-circle-up"></i>
-      <i class="fas fa-arrow-alt-circle-down"></i> {% endcomment %}
+      <div class="answer-content">
+        <p>{{ answer.content }}</p>
+      </div>
+      {% comment %} <i class="fas fa-arrow-alt-circle-up"></i> {% endcomment %}
+      {% comment %} <i class="fas fa-arrow-alt-circle-down"></i>  {% endcomment %}
     </div>
   {% endfor %}
 </div>
