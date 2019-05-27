@@ -1,6 +1,7 @@
-from django.db.models import Count, OuterRef, Subquery, F
+from django.db.models import Count, OuterRef, Subquery, F, ExpressionWrapper, IntegerField
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models.functions import Coalesce
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import simplejson as json
@@ -76,7 +77,43 @@ def deck_create(request, tag):
   
   return redirect('deck_show', tag=tag, idx=1)
 
-#Send PAIN API Endpoint
+@login_required
+def card_community(request, pk):
+  user = request.user
+  question = Question.objects.get(pk=pk)
+  card_tags = question.tags.all()
+
+  # Cache all public answers for current question, and all votes for those answers
+  answers = Answer.objects.filter(public=True,question=question).prefetch_related('question')
+  votes = Vote.objects.filter(answer__question=question).prefetch_related('answer')
+
+  ## Count up all the votes and sort by the top Answers
+  ## Step 1: Count up the yes' and the no's
+  # 1. a) Subqueries: Count up number of votes, filtered by answer and vote type. Saves it to 'yes' or 'no', and returns it.
+  count_yes = votes.filter(answer__id=OuterRef('pk'),vote=1).values('vote').annotate(yes=Count('vote')).values('yes')
+  count_no = votes.filter(answer__id=OuterRef('pk'),vote=-1).values('vote').annotate(no=Count('vote')).values('no')
+  # 1. b) Main outer queries: Runs subquery on all answers for current question, saving returned vote counts to each answer.
+  # Note: The only thing Coalesce is doing is replacing any 'none' responses with '0'
+  answers = answers.annotate(yes_count=Coalesce(Subquery(count_yes, output_field=IntegerField()), 0))
+  answers = answers.annotate(no_count=Coalesce(Subquery(count_no, output_field=IntegerField()), 0))
+  # answers[0].yes_count
+  # answers[0].no_count
+  ## Step 2: Subtract no's from yes' and save as the total. (Coalesce setting 0's instead of Nones makes this work)
+  annotated = answers.annotate(total_vote=ExpressionWrapper(F('yes_count') - F('no_count'), output_field=IntegerField()))
+  # annotated[0].total_vote
+  ## Step 3: Sort by the new total_vote field, highest count first.
+  annotated_sorted = annotated.order_by(F('total_vote').desc(nulls_last=True))
+
+  ## Notes on aggregate Sum vs annotate Count:
+  # Aggregate works for individual answers, but you can't put .aggregate() inside a subquery. It evaluates right away.
+  # sum_votes = Vote.objects.filter(answer__id=1).aggregate(yes=Sum('vote'))
+  # So instead we need to count up all the Yes votes and all the No votes, and then subtract them
+
+  values = {'question': question, 'card_tags': card_tags, 'answers': annotated_sorted}
+  return render(request, 'flashr/card_community.html', values)
+
+## API Endpoints
+# Send PAIN API Endpoint
 def send_pain(request):
   # print(request.POST)
   if request.method == 'POST':
@@ -85,10 +122,6 @@ def send_pain(request):
     question = Question.objects.get(id=request.POST['question_id'])
     Pain.objects.create(level=pain_level, question=question, profile=profile)
 
-    # response = {
-    #  'status': 200,
-    #  'pain_level: pain_level
-    # }
     response = {}
     response['status'] = 200
     response['pain_level'] = pain_level
