@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 console.log("hello world");
-$(`#pain${$('.pain-chart')[0].id}`).css('box-shadow', '1px 1px 5px 5px red')
+$(`#pain${$('.pain-chart')[0].id}`).css('text-shadow', '1px 1px 5px red')
 
 function showAnswer() {
   button = document.querySelector('.answer-toggler')
@@ -16,15 +16,15 @@ function showAnswer() {
 
 handlePain = data => {
   console.log('handeld through whaterver', data)
-  $('.pain-btn').css('box-shadow', 'none')
-  $(`#pain${data.pain_level}`).css('box-shadow', '1px 1px 5px 5px red')
+  $('.pain-btn').css('text-shadow', 'none')
+  $(`#pain${data.pain_level}`).css('text-shadow', '1px 1px 5px red')
 }
 
 
 sendPain = e => {
   e.preventDefault();
   pain = {
-    "level":e.target.value, 
+    "level":e.target.id.slice(-1), 
     "question_id":$('.question')[0].id
   }
   create_post('/pain', pain, handlePain)
@@ -59,9 +59,9 @@ function create_post(url, data,
 
 
   
-$('.pain-chart').on('click', 'button', sendPain)
+$('.pain-chart').on('click', '.pain-btn', sendPain)
 $('.answering').on('click', answerMe)
-
+console.log('anything it dosent matter just not...')
 
 
 

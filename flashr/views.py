@@ -31,10 +31,9 @@ def deck_show(request, tag, idx):
   count = deck.count() #counts the cards obv
   card = deck.get(order_idx=idx).question #gets the single card in question
   card_tags = card.tags.all() #gets all the tags the question has
-  if idx == count:
-    idx = 'last'
- 
   values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'deck_idx': idx}
+  if idx == count:
+    values['last_card'] = True
   try: #updates values to include most recent pain if applicable
     pain = Pain.objects.filter(profile=user.profile, question=card).latest('time_stamp')#.order_by('-time_stamp')[0:1].get()
     values['pain'] = pain

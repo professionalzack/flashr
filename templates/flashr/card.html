@@ -46,27 +46,37 @@
   </article>
 </div>
 
+<div class="pain-chart" id={{pain.level}}>
+    <a class="pain-btn" id="pain1" >🤓</a>
+    <a class="pain-btn" id="pain2" >😐</a>
+    <a class="pain-btn" id="pain3" >🤨</a>
+    <a class="pain-btn" id="pain4" >🤕</a>
+    <a class="pain-btn" id="pain5" >☠️</a>
+    <h4 class="feeling">(How does this problem make you feel?)</h4>
+</div>
+
 {% if deck_idx %}
   <div class="deck-wrapper">
     <div class="previous">
-      {% if deck_idx > 1 %}
+      {% if deck_idx != 1 %}
         <a href="{% url 'deck_show' tag=tag idx=deck_idx|add:'-1' %}">Previous</a>
       {% else %}
         <p style='color:grey'>Previous</p>      
       {% endif %} 
     </div>
     <div class="next">
-      {% if deck_idx == 'last' %}  
+      {% if last_card %}  
         <a onclick="alert('congratulations, you have completed the deck'); window.location.href='{% url 'profile' %}'">Complete Deck</a>
       {% else %}
         <a href="{% url 'deck_show' tag=tag idx=deck_idx|add:'+1' %}">Next</a>
       {% endif %}
     </div>
   </div>
+      
   <form class="answerform">
     <div class="measure">
       <label for="answercontent" class="f6 b db mb2"
-        >Answer <span class="normal black-60">(optional)</span></label
+        >Answer <span class="normal black-60">(Explain if needed)</span></label
       >
       <input
         id="answercontent"
@@ -82,16 +92,9 @@
       > -->
     </div>
   </form>
-  <button class="answering" onclick="answerMe">answerd toady</button>
+  <button class="answering" onclick="answerMe">answerd today</button>
 {% endif %}
 
-<div class="pain-chart" id={{pain.level}}>
-	<button class="pain-btn" id="pain1" value="1">pain1</button>
-	<button class="pain-btn" id="pain2" value="2">pain2</button>
-	<button class="pain-btn" id="pain3" value="3">pain3</button>
-	<button class="pain-btn" id="pain4" value="4">pain4</button>
-	<button class="pain-btn" id="pain5" value="5">pain5</button>
-</div>
 
 {% comment %}
 <form method="POST" class="answer-form">
