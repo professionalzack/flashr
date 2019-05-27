@@ -2,17 +2,39 @@ $( document ).ready(function() {
 console.log("hello world");
 $(`#pain${$('.pain-chart')[0].id}`).css('box-shadow', '1px 1px 5px 5px red')
 
-function showAnswer() {
-  button = document.querySelector('.answer-toggler')
-  const x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-    button.innerHTML = "hide answer"
+let display = $('.answer-toggler').length > 0 ? 'none' : 'block';
+$('.hiders').css('display', display)
+
+function showAnswer(e) {
+  e.preventDefault()
+  const $button = $('.answer-toggler');
+  const $x = $('#current-answer');
+  const $y = $('.hiders');
+  // ($x.css('diplay') == 'none') ? $x.fadeIn() : $x.fadeOut()
+  $y.fadeIn()
+  if ($x.css('display') === "none") {
+    $x.fadeIn();
+    $button.text("Hide Previous Answer");
   } else {
-    x.style.display = "none";
-    button.innerHTML = "show answer"
+    $x.fadeOut();
+    $button.text("Show Previous Answer");
   }
 }
+// function showAnswer(e) {
+//   e.preventDefault()
+//   button = document.querySelector('.answer-toggler');
+//   const x = document.getElementById('current-answer');
+//   const y = document.querySelector('.hiders');
+//   if (x.style.display === "none") {
+//     x.style.display = "block";
+//     button.innerHTML = "Hide Previous Answer"
+//   } else {
+//     x.style.display = "none";
+//     button.innerHTML = "Show Previous Answer"
+//   }
+//   y.style.display = "block";
+// }
+
 
 handlePain = data => {
   console.log('handeld through whaterver', data)
@@ -30,8 +52,8 @@ sendPain = e => {
   create_post('/pain', pain, handlePain)
 }
 
-answerMe = e => {
-  e.preventDefault();
+sendAnswer = () => {
+  console.log('YEAH MA ND')
   let ansArr = $('.answerform').serializeArray();
   answer = {
     "public":ansArr.length,
@@ -41,6 +63,12 @@ answerMe = e => {
   console.log(answer)
   create_post('/answer', answer)
 }
+
+
+
+
+
+
 
 function create_post(url, data, 
   success=response => console.log(response)) {
@@ -60,26 +88,26 @@ function create_post(url, data,
 
   
 $('.pain-chart').on('click', 'button', sendPain)
-$('.answering').on('click', answerMe)
-
+$('#showAnswer').on('click', showAnswer)
+$('#sendAnswer').on('click', sendAnswer)
 
 
 
 // $(document).ready(function(){
-//     $(".toggle_container").hide(); 
-//     $("button.reveal").click(function(){
-//         $(this).toggleClass("active").next().slideToggle("fast");
+    // $(".toggle_container").hide(); 
+    // $("button.reveal").click(function(){
+    //     $(this).toggleClass("active").next().slideToggle("fast");
         
-//         if ($.trim($(this).text()) === 'Show Answer') {
-//             $(this).text('Hide Answer');
-//         } else {
-//             $(this).text('Show Answer');        
-//         }
+    //     if ($.trim($(this).text()) === 'Show Answer') {
+    //         $(this).text('Hide Answer');
+    //     } else {
+    //         $(this).text('Show Answer');        
+    //     }
         
-//         return false; 
-//     });
-//      $("a[href='" + window.location.hash + "']").parent(".reveal").click();
-//     });
+    //     return false; 
+    // });
+    //  $("a[href='" + window.location.hash + "']").parent(".reveal").click();
+    // });
 
 
 // $(answers).each((i,child)=> {

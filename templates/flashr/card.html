@@ -63,7 +63,16 @@
       {% endif %}
     </div>
   </div>
-  <form class="answerform">
+
+  <div class="pain-chart" id={{pain.level}}>
+      <button class="pain-btn" id="pain1" value="1">pain1</button>
+      <button class="pain-btn" id="pain2" value="2">pain2</button>
+      <button class="pain-btn" id="pain3" value="3">pain3</button>
+      <button class="pain-btn" id="pain4" value="4">pain4</button>
+      <button class="pain-btn" id="pain5" value="5">pain5</button>
+    </div>
+
+  <!-- <form class="answerform"> -->
     <div class="measure">
       <label for="answercontent" class="f6 b db mb2"
         >Answer <span class="normal black-60">(optional)</span></label
@@ -75,22 +84,33 @@
         type="text"
         aria-describedby="answer content"
       />
-      <label for="private" class="f6 black-60 db mb2">make you answer private?</label>
-      <input type="checkbox" name="private" id="private">
-      <!-- <small id="name-desc" class="f6 black-60 db mb2"
-        >Write the answer in code form with explanations.</small
-      > -->
+
+      <div class="hiders">
+        <label for="private" class="f6 black-60 db mb2">make you answer private?</label>
+        <input type="checkbox" name="private" id="private">
+        <!-- <small id="name-desc" class="f6 black-60 db mb2"
+          >Write the answer in code form with explanations.</small
+        > -->
+      <!-- </form> -->
+  
+        <small class="hiders f6 black-60 db mb2">
+            Save this answer as your answer?
+          </small>
+          <button id="sendAnswer">Save Answer</button>
+        <div class="answer-methods">
+      </div>
+
+
     </div>
-  </form>
-  <button class="answering" onclick="answerMe">answerd toady</button>
+  
+    {% if current_answer %}
+      <button class="answer-toggler" id="showAnswer">Show Previous Answer</button>
+    {% endif %}
+  </div>
 {% endif %}
 
-<div class="pain-chart" id={{pain.level}}>
-	<button class="pain-btn" id="pain1" value="1">pain1</button>
-	<button class="pain-btn" id="pain2" value="2">pain2</button>
-	<button class="pain-btn" id="pain3" value="3">pain3</button>
-	<button class="pain-btn" id="pain4" value="4">pain4</button>
-	<button class="pain-btn" id="pain5" value="5">pain5</button>
+<div class="answer-box" id="current-answer">
+  <h4>{{ current_answer.content }}</h4>
 </div>
 
 {% comment %}
@@ -99,9 +119,5 @@
   {{ form.as_p }}
   <button type="submit" class="">Submit Answer</button>
 </form>
-<button class="answer-toggler" onclick="showAnswer()">Show Answer</button>
-<div class="previous-answers" id="myDIV">
-  <h3>Galaxy is on orions belt</h3>
-</div>
 {% endcomment %}
 {% endblock %}

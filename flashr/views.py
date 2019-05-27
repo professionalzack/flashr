@@ -31,10 +31,11 @@ def deck_show(request, tag, idx):
   count = deck.count() #counts the cards obv
   card = deck.get(order_idx=idx).question #gets the single card in question
   card_tags = card.tags.all() #gets all the tags the question has
+  current_answer = Answer.objects.get(id=1)
   if idx == count:
     idx = 'last'
  
-  values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'deck_idx': idx}
+  values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'deck_idx': idx, 'current_answer': current_answer}
   try: #updates values to include most recent pain if applicable
     pain = Pain.objects.filter(profile=user.profile, question=card).latest('time_stamp')#.order_by('-time_stamp')[0:1].get()
     values['pain'] = pain
@@ -98,7 +99,7 @@ def send_pain(request):
     return HttpResponse(json.dumps({"error": "wasnt a POST request"}), content_type="application/json")
 
 # Send Answer API Endpoint
-def answer_me(request):
+def send_answer(request):
   print(request.POST)
   if request.method == 'POST':
     profile = request.user.profile

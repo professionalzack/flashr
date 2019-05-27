@@ -309,3 +309,8 @@ footer {
 }
 } 
 */
+
+
+.hiders, #current-answer {
+  display: none;
+}
