@@ -1,0 +1,23 @@
+{% extends './card.html' %}
+
+{% block community %}
+
+<h1>Test Community</h1>
+<p>{{ question.id }}</p>
+
+<div class="answer-holder">
+  {% for answer in answers %}
+    <div class="answer-item">
+      <div class="vote-holder">
+        <i class="far fa-arrow-alt-circle-up"></i>
+        <p>{{ answer.total_vote }}</p>
+        <i class="far fa-arrow-alt-circle-down"></i>
+      </div>
+      <p>{{ answer.content }}</p>
+
+      {% comment %} <i class="fas fa-arrow-alt-circle-up"></i>
+      <i class="fas fa-arrow-alt-circle-down"></i> {% endcomment %}
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
