@@ -32,7 +32,11 @@ def deck_show(request, tag, idx):
   card = deck.get(order_idx=idx).question #gets the single card in question
   card_tags = card.tags.all() #gets all the tags the question has
 
+
   current_answer = Answer.objects.get(id=1)
+
+
+
   if idx == count:
     idx = 'last'
  ##answers w i p // remove current_answer from values and insert dynamically 
@@ -103,10 +107,13 @@ def send_pain(request):
 def send_answer(request):
   print(request.POST)
   if request.method == 'POST':
+
     profile = request.user.profile
+
     content = request.POST['content']
     public = ((True, False) [int(request.POST['public']) == 2 ])
     question = Question.objects.get(id=request.POST['question_id'])
+    Answer.objects.get(author=profile,question=question ).delete()
     Answer.objects.create(content=content, public=public, question=question, author=profile)
 
     response = {}

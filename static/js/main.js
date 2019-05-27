@@ -4,6 +4,7 @@ $(`#pain${$('.pain-chart')[0].id}`).css('text-shadow', '1px 1px 5px red')
 
 let display = $('.answer-toggler').length > 0 ? 'none' : 'block';
 $('.hiders').css('display', display)
+$('#current-answer').css('display', 'none')
 
 function showAnswer(e) {
   e.preventDefault()
@@ -53,15 +54,18 @@ sendPain = e => {
 }
 
 sendAnswer = () => {
-  console.log('YEAH MA ND')
   let ansArr = $('.answerform').serializeArray();
-  answer = {
-    "public":ansArr.length,
-    "content": ansArr[0].value,
-    "question_id":$('.question')[0].id
+  if(ansArr[0].value === ''){
+    alert('still havent handled empty response, zack ?')
+  }else{
+    answer = {
+      "public":ansArr.length,
+      "content": ansArr[0].value,
+      "question_id":$('.question')[0].id
+    }
+    console.log(answer)
+    // create_post('/answer', answer)
   }
-  console.log(answer)
-  create_post('/answer', answer)
 }
 
 
