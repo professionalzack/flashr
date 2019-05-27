@@ -1,31 +1,20 @@
 {% extends '../base.html' %}
 
 {% block content %}
-{% if deck_idx %}
-  <h1>Deck Card {{ deck_idx }} </h1> 
-{% else %}
-  <h1>Question Card</h1>
-{% endif %}
+<main>
+  {% if deck_idx %} 
+    <h1>Deck Card {{ deck_idx }} </h1> 
+  {% else %}
+    <h1>Question Card</h1>
+  {% endif %}
 
-<h4 class="question" id={{question.id}}></h4>
-<div>
-  <article
-  class="br2 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw5 center"
-  >
-  <img
-  src="http://placekitten.com/g/600/300"
-  class="db w-100 br2 br--top"
-  alt="Photo of a kitten looking menacing."
-  />
-  <div class="pa2 ph3-ns pb3-ns">
-    <div class="dt w-100 mt1">
-      <div class="dtc">
-        <h1 class="f5 f4-ns mv0">Question</h1>
-      </div>
-      <div class="dtc tr">
-          {% for tag in card_tags %}
-          <a
-            style="text-decoration:none;"
+  <h4 class="question" id={{question.id}}></h4>
+  <div>
+    <article class="center mw5 mw6-ns hidden ba mv4">
+      <h1 class="f4 bg-near-black white mv0 pv2 ph3">
+        Question
+        {% for tag in card_tags %}
+          <a style="text-decoration:none;"
             href="{% url 'deck_create' tag=tag.content %}"
           >
             <button
@@ -35,90 +24,122 @@
               {{ tag.content }}
             </button>
           </a>
-          {% endfor %}
+        {% endfor %}
+      </h1>
+      <div class="dtc tr">
+        <div class="pa2 ph3-ns pb3-ns">
+          <div class="dt w-100 mt1">
+            <p class="f6 lh-copy mt2 mid-gray">
+              {{ question.title }}
+              {{ pain.level }}
+            </p>
+          </div>
         </div>
       </div>
-      <p class="f6 lh-copy measure mt2 mid-gray">
-        {{ question.title }}
-        {{ pain.level }}
-      </p>
-    </div>
-  </article>
-</div>
-
-<div class="pain-chart" id={{pain.level}}>
-    <a class="pain-btn" id="pain1" >🤓</a>
-    <a class="pain-btn" id="pain2" >😐</a>
-    <a class="pain-btn" id="pain3" >🤨</a>
-    <a class="pain-btn" id="pain4" >🤕</a>
-    <a class="pain-btn" id="pain5" >☠️</a>
-    <h4 class="feeling">(How does this problem make you feel?)</h4>
-</div>
-
-{% if deck_idx %}
-  <div class="deck-wrapper">
-    <div class="previous">
-      {% if deck_idx != 1 %}
-        <a href="{% url 'deck_show' tag=tag idx=deck_idx|add:'-1' %}">Previous</a>
-      {% else %}
-        <p style='color:grey'>Previous</p>      
-      {% endif %} 
-    </div>
-    <div class="next">
-      {% if last_card %}  
-        <a onclick="alert('congratulations, you have completed the deck'); window.location.href='{% url 'profile' %}'">Complete Deck</a>
-      {% else %}
-        <a href="{% url 'deck_show' tag=tag idx=deck_idx|add:'+1' %}">Next</a>
-      {% endif %}
-    </div>
-  </div>
-
-  <!-- <form class="answerform"> -->
-    <div class="measure">
-      <label for="answercontent" class="f6 b db mb2"
-        >Answer <span class="normal black-60">(Explain if needed)</span></label
-      >
-      <input
-        id="answercontent"
-        name="answercontent"
-        class="input-reset ba b--black-20 pa2 mb2 db w-100"
-        type="text"
-        aria-describedby="answer content"
-      />
-
-      <div class="hiders">
-        <label for="private" class="f6 black-60 db mb2">make you answer private?</label>
-        <input type="checkbox" name="private" id="private">
-        <!-- <small id="name-desc" class="f6 black-60 db mb2"
-          >Write the answer in code form with explanations.</small
-        > -->
-      <!-- </form> -->
-  
-        <small class="hiders f6 black-60 db mb2">
-            Save this answer as your answer?
-          </small>
-          <button id="sendAnswer">Save Answer</button>
-        <div class="answer-methods">
       </div>
-
-
-    </div>
-  
-    {% if current_answer %}
-      <button class="answer-toggler" id="showAnswer">Show Previous Answer</button>
-    {% endif %}
+    </article>
   </div>
-{% endif %}
 
-<div class="answer-box" id="current-answer">
-  <h4>{{ current_answer.content }}</h4>
-</div>
+  <div class="pain-chart" id={{pain.level}}>
+      <a class="pain-btn" id="pain1" >🤓</a>
+      <a class="pain-btn" id="pain2" >😐</a>
+      <a class="pain-btn" id="pain3" >🤨</a>
+      <a class="pain-btn" id="pain4" >🤕</a>
+      <a class="pain-btn" id="pain5" >☠️</a>
+      <h4 class="feeling">(How does this problem make you feel?)</h4>
+  </div>
 
-{% comment %}
-<form method="POST" class="answer-form">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="">Submit Answer</button>
-</form>
-{% endcomment %}
+  {% if deck_idx %}
+    <div class="deck-wrapper">
+      <div class="previous">
+        {% if deck_idx != 1 %}
+          <a class="f6 link dim br-pill ph3 pv2 mb2 dib white bg-mid-gray" 
+            href="{% url 'deck_show' tag=tag idx=deck_idx|add:'-1' %}">
+            Previous Question
+          </a>
+        {% else %}
+          <a class="f6 link dim br-pill ph3 pv2 mb2 dib white bg-mid-gray" 
+            style="cursor: not-allowed">
+            Previous
+          </a>
+        {% endif %} 
+      </div>
+      <div class="next">
+        {% if last_card %}  
+          <a class="f6 link dim br-pill ph3 pv2 mb2 dib white bg-mid-gray" 
+            style="cursor: pointer" 
+            onclick="alert('congratulations, you have completed the deck'); window.location.href='{% url 'profile' %}'">
+            Complete Deck
+          </a>
+        {% else %}
+          <a class="f6 link dim br-pill ph3 pv2 mb2 dib white bg-mid-gray" 
+            href="{% url 'deck_show' tag=tag idx=deck_idx|add:'+1' %}">
+            Next Question
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- <form class="answerform"> -->
+    <article class="center mw5 mw6-ns hidden ba mv4">
+      <h1 class="f4 bg-near-black white mv0 pv2 ph3">Answer Box</h1>
+      <div class="pa3 bt">
+        <label for="answercontent" class="f6 b db mb2">
+          Answer 
+          <span class="normal black-60">(Explain if needed)</span>
+        </label>
+        <input
+          id="answercontent"
+          name="answercontent"
+          class="input-reset ba b--black-20 pa2 mb2 db w-100"
+          type="text"
+          aria-describedby="answer content"
+        />
+      
+        <div class="tr">
+          <label for="private" class="f6 black-60 db mb2">
+            make you answer private?
+            <input type="checkbox" name="private" id="private">
+          </label>
+          
+          <!-- <small id="name-desc" class="f6 black-60 db mb2"
+            >Write the answer in code form with explanations.</small
+            > -->
+          <!-- </form> -->
+          <small class=" f6 black-60 db mb2">
+              Save this answer as your answer?
+          </small>
+          <a id="sendAnswer"
+            class="f6 link dim br3 ph3 pv2 mb2 dib white bg-mid-gray"
+            href="#0">
+            Save Answer
+          </a>
+          <div class="answer-methods"></div>
+        </div>
+      
+        {% if current_answer %}
+        <div class="tr">
+          <a id="showAnswer" 
+            class="answer-toggler f6 link dim br3 ph3 pv2 mb2 dib white bg-dark-green"
+            href="#0">
+          Show Previous Answer
+          </a>
+        </div>
+        {% endif %}
+        <div class="answer-box" id="current-answer">
+            <h4>{{ current_answer.content }}</h4>
+        </div>
+      </div>
+    </article>
+  {% endif %}
+
+
+  {% comment %}
+  <form method="POST" class="answer-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="">Submit Answer</button>
+  </form>
+  {% endcomment %}
+<main>
 {% endblock %}
