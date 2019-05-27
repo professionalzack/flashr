@@ -30,7 +30,7 @@ sendPain = e => {
   create_post('/pain', pain, handlePain)
 }
 
-answerMe = e => {
+sendAnswer = e => {
   e.preventDefault();
   let ansArr = $('.answerform').serializeArray();
   answer = {
@@ -60,7 +60,7 @@ function create_post(url, data,
 
   
 $('.pain-chart').on('click', 'button', sendPain)
-$('.answering').on('click', answerMe)
+$('.answering').on('click', sendAnswer)
 
 
 
