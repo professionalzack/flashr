@@ -201,3 +201,12 @@ footer{
 .measure {
   max-width: none;
 }
+
+} 
+*/
+
+
+.hiders, #current-answer {
+  display: none;
+}
+
