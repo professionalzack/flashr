@@ -206,6 +206,7 @@ footer{
   cursor: pointer;
 }
 
+
 .hiders, #current-answer {
   display: none;
 }

@@ -26,22 +26,29 @@ def question_show(request, pk):
 ##show one deck item
 @login_required
 def deck_show(request, tag, idx):
-  user = request.user
-  deck = Deck.objects.filter(profile=user.profile) #grabs the subquery so only one db delve
+  profile = request.user.profile
+  deck = Deck.objects.filter(profile=profile) #grabs the subquery so only one db delve
   count = deck.count() #counts the cards obv
   card = deck.get(order_idx=idx).question #gets the single card in question
   card_tags = card.tags.all() #gets all the tags the question has
+  
+  values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'deck_idx': idx}
 
-  current_answer = Answer.objects.get(id=2)
- ##answers w i p // remove current_answer from values and insert dynamically 
-  values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'deck_idx': idx, 'current_answer': current_answer}
   if idx == count:
-        values['last_card'] = True
+    values['last_card'] = True
+  
+  try:
+    current_answer = Answer.objects.get(author=profile, question=card)
+    values['current_answer'] = current_answer
+  except ObjectDoesNotExist:
+    pass
+
+
   try: #updates values to include most recent pain if applicable
-    pain = Pain.objects.filter(profile=user.profile, question=card).latest('time_stamp')#.order_by('-time_stamp')[0:1].get()
+    pain = Pain.objects.filter(profile=profile, question=card).latest('time_stamp')#.order_by('-time_stamp')[0:1].get()
     values['pain'] = pain
-  except ObjectDoesNotExist: #creates a throwaway variable if no pain was found
-    pain = 'pain'
+  except ObjectDoesNotExist: 
+    pass
 ## Alternative method to show pain
 #  pains = Pain.objects.all().prefetch_related('profile', 'question') # get once and cache in pains variable
 #  if pains.filter(profile=user.profile,question__id=card.id).exists():
@@ -103,10 +110,18 @@ def send_pain(request):
 def send_answer(request):
   print(request.POST)
   if request.method == 'POST':
+
     profile = request.user.profile
+
     content = request.POST['content']
     public = ((True, False) [int(request.POST['public']) == 2 ])
     question = Question.objects.get(id=request.POST['question_id'])
+
+    try:
+      Answer.objects.get(author=profile,question=question ).delete()
+    except ObjectDoesNotExist:
+      pass
+    
     Answer.objects.create(content=content, public=public, question=question, author=profile)
 
     response = {}
