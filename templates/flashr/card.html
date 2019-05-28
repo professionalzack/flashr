@@ -17,7 +17,11 @@
       <div class="pa3 bt">
         {% if question.content %}
         <p class="f6 lh-copy mt2 mid-gray">
-          {{ question.content }}
+          <pre>
+            <code class="language-javascript">
+              {{ question.content }}
+            </code>
+          </pre>
         </p>
         {% endif %}
         <div class="tr">
