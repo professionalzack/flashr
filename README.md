@@ -1,13 +1,15 @@
 # flashr
 
+To use at home: fork this repo, clone it to your computer, then, in the command line, run:
+
 ```zsh
 virtualenv .env -p python3
 source .env/bin/activate
-git clone https://github.com/professionalzack/flashr.git
 pip3 install -r requirements.txt
 createdb flashr
 python3 manage.py makemigrations
 python3 manage.py migrate
+python3 manage.py loaddata db.json
 python3 manage.py runserver
 ```
 
@@ -88,3 +90,25 @@ When one of us were stuck, we approached the problem as team. Having one driver 
   - Make a deck model that will give a user a personalized deck based on their pain level. 
 
 - The community aspect.
+
+## Future/Wish List
+
+ - Comments on Answers
+  
+ - 'Hints' functionality
+ 
+ - User submitted questions
+  
+ - Expand responsiveness and accessibility
+ 
+ - Guest Mode
+ 
+ - Expand Contributing Guidelines and Code of Conduct
+ 
+ 
+ ## Contributing !
+ 
+ **Fl\*shr** depends on community in order to work at all, so simply using it and saving public answers is contributing! While you are doing so, if you happen to encounter any bugs, errors, or simply have a cool idea you'd like to see in Fl\*shr, just [open an issue](https://github.com/professionalzack/flashr/issues).
+ 
+ If you'd like to get *really* involved, fork the repo, make the changes of your dreams, and either make a pull request, or change the name and try and sell to some chump. Or, go through any [issues](https://github.com/professionalzack/flashr/issues)
+ you see and try and correct them. Thanks!
