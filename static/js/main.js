@@ -159,7 +159,7 @@ function create_post(url, data,
 }
 
 // Event Listeners
-$('.pain-chart').on('click', 'button', sendPain);
+$('.pain-chart').on('click', 'a', sendPain);
 $('.vote').on('click', sendVote);
 $('#showAnswer').on('click', showAnswer)
 $('#sendAnswer').on('click', sendAnswer)

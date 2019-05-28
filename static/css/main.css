@@ -104,7 +104,7 @@ footer{
   flex-direction: column;
   justify-content: center;
 }
-.profile_body > ul > li:nth-child(1){
+.profile_body > a > ul > li:nth-child(1){
   z-index: 0;
   list-style: none;
   width: 80vw;
@@ -113,7 +113,7 @@ footer{
   background-color: #d1d1d1;
   border: 2px solid black;
 }
-.profile_body > ul > li:nth-child(2){
+.profile_body > a > ul > li:nth-child(2){
   z-index: 2;
   list-style: none;
   width: 80vw;
@@ -121,6 +121,10 @@ footer{
   margin: 1vh auto;
   border: 2px solid black;
   background-color: white;
+}
+
+.profile_body > a:hover {
+
 }
 
 /* register.html */
@@ -205,4 +209,9 @@ footer{
 }
 .hiders, #current-answer {
   display: none;
+}
+
+a:link, a:visited, a:hover, a:active {
+  text-decoration:none;
+  color: black;
 }

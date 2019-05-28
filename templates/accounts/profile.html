@@ -14,18 +14,14 @@
     </div>
   </div>
   <div class="profile_body">
-    <ul>
-      <li>Question</li>
-      <li>Answer</li>
-    </ul>
-    <ul>
-      <li>Question</li>
-      <li>Answer</li>
-    </ul>
-    <ul>
-      <li>Question</li>
-      <li>Answer</li>
-    </ul>
+    {% for question in questions %}
+    <a href="{% url 'question_show' pk=question.question.pk %}" class="dim">
+      <ul>
+        <li>{{question.question.title}}</li>
+        <li>{{question.answer.content}}</li>
+      </ul>
+    </a>
+    {% endfor %}
   </div>
 </main>
 {% endblock %}
