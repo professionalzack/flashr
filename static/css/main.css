@@ -162,11 +162,14 @@ footer{
   text-align: center;
   padding: 20px;
 }
-  
+
+h1 {
+  text-align: center;
+}
 /* card_community.html */
 .answers-holder {
   margin: 5px 20px;
-  padding: 5px;
+  /* padding: 5px; */
   display: flex;
   flex-direction: column;
 }
@@ -176,11 +179,22 @@ footer{
 }
 .vote-content {
   border: 2px solid black;
-  width: 30px
+  padding: 5px 10px;
+  text-align: center;
+}
+.vote-content h1 {
+  margin: 10px 0px;
 }
 .answer-content {
   border: 2px solid black;
   width: 100%;
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.answer-content h2 {
+  margin-top: 0px;
 }
 .vote {
   font-size: 2em;

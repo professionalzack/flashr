@@ -2,7 +2,7 @@
 
 {% block community %}
 
-<h1>Test Community</h1>
+<h1>Community Answers</h1>
 {% comment %} <p>{{ question.id }}</p> {% endcomment %}
 
 <div class="answers-holder">
@@ -14,7 +14,7 @@
         {% else %}
           <i class="vote far fa-arrow-alt-circle-up"></i>
         {% endif %}
-        <p class="vote-count" data-vote="{{ answer.total_vote }}">{{ answer.total_vote }}</p>
+        <h1 class="vote-count" data-vote="{{ answer.total_vote }}">{{ answer.total_vote }}</h1>
         {% if answer.user_vote == -1 %}
           <i class="vote fas fa-arrow-alt-circle-down"></i>
         {% else %}
@@ -22,7 +22,9 @@
         {% endif %}
       </div>
       <div class="answer-content">
-        <p>{{ answer.content }}</p>
+        <h2>{{ answer.content }}</h2>
+        <span>{{ answer.author.user.username }} | {{ answer.time_stamp }}</span>
+
       </div>
       {% comment %} <i class="fas fa-arrow-alt-circle-up"></i> {% endcomment %}
       {% comment %} <i class="fas fa-arrow-alt-circle-down"></i>  {% endcomment %}
