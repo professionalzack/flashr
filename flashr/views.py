@@ -199,12 +199,9 @@ def send_vote(request):
       # 0 means they are 'un-voting', ie taking back a vote
       # Delete any existing votes from this user for this answer
       Vote.objects.filter(profile=profile, answer=answer).delete()
-      if (action == 'up'):
-        vote_choice = -1
-      elif (action == 'down'):
-        vote_choice = 1
       response['status'] = 200
       response['vote'] = vote_choice
+      response['action'] = action
       response['a_id'] = answer.id
     else:
       # print('invalid vote detected...')

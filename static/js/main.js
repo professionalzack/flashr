@@ -42,7 +42,7 @@ function showAnswer(e) {
 
 // Sending Pain
 handlePain = data => {
-  console.log('handeld through whaterver', data)
+  console.log('handling pain: ', data)
   setPain(data.pain_level)//realistic update :)
 }
 handleAnswer = data => {
@@ -77,8 +77,23 @@ handleVote = data => {
     console.log('vote: response included: ', data)
   }
   // Update the total vote count based on ajax response and starting value
-  const voteValue = parseInt($(`[data-answer-pk="${data.a_id}"]`).find('.vote-count').attr('data-vote'));
-  $(`[data-answer-pk="${data.a_id}"]`).find('.vote-count').text(voteValue + parseInt(data.vote))
+  // if un-voting, change by 1
+  // If yes/no, move but remember the center value so toggling yes/no works
+  const clickedAnswer = $(`[data-answer-pk="${data.a_id}"]`)
+  const storedVoteValue = parseInt(clickedAnswer.find('.vote-count').attr('data-vote'));
+  let voteValue = parseInt(clickedAnswer.find('.vote-count').text());
+  const vote = parseInt(data.vote);
+  if (vote === 0) {
+    if (data.action === 'up') {
+      clickedAnswer.find('.vote-count').text(voteValue - 1);
+      clickedAnswer.find('.vote-count').attr('data-vote', voteValue - 1)
+    } else if (data.action === 'down') {
+      clickedAnswer.find('.vote-count').text(voteValue + 1);
+      clickedAnswer.find('.vote-count').attr('data-vote', voteValue + 1)
+    }
+  } else if (vote === 1 || vote === -1) {
+    clickedAnswer.find('.vote-count').text(storedVoteValue + vote);
+  }  
 }
 sendVote = e => {
   // e.preventDefault();
@@ -121,7 +136,7 @@ sendVote = e => {
   create_post('/vote', vote, handleVote, submitVote);
 }
 
-// Sending an Awnser
+// Sending an Answer
 sendAnswer = () => {
   let ansArr = $('.answerform').serializeArray();
   if(ansArr[0].value === ''){
