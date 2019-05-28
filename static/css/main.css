@@ -33,13 +33,6 @@ nav > a {
   margin: 0 1vw;
 } */
 
-footer{
-  position: fixed;
-  bottom: 5vh;
-  margin: 0 40vw 0 40vw;
-  height: auto;
-}
-
 /* landing.html */
 .landing-header{
   text-align: center;
