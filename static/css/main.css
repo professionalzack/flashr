@@ -1,5 +1,5 @@
 * {
-  /* border: 1px solid blue; */
+  border: 1px solid blue;
   font-family: 'Roboto Mono', monospace;
   padding: 0;
 }
@@ -29,33 +29,44 @@ nav > a {
 footer{
   position: fixed;
   bottom: 5vh;
-  margin: 0 40vw 0 40vw;
   height: auto;
+  text-align: center;
+  width: 100%;
 }
 
 /* landing.html */
 .landing-header{
   text-align: center;
-  font-size: 15vh;
+  font-size: 10vh;
   margin: 0 0 2vh 0;
 }
 .top-tags-container{
   /* display: flex;
   flex-direction: row;
   justify-content: space-around; */
+  margin-bottom: 20px;
+}
+.all-tags-container {
+  padding: 10px 0 0;
+  text-align: center;
+  
 }
 .top-tags{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
-.top-tags > li{
+.top-tags li{
   list-style: none;
   text-align: center;
-  height: 30vh;
+  font-size: 3em;
+  height: 20vh;
   width: 30vh;
-  border: 1px solid red;
-  background-color: white;
+  line-height: 20vh;
+  color: white;
+  /* border: 1px solid red; */
+  /* background-color: white; */
+  border-radius: 20px;
 }
 .all-tags{
   display: flex;
