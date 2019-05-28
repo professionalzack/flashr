@@ -1,3 +1,44 @@
-{% extends '../base.html' %} {% block content %}
-<h1>Landing</h1>
+{% extends '../base.html' %} 
+
+{% block content %}
+<main class="landing-main">
+  <h1 class="landing-header">FL*SHR</h1>
+  <div class="top-tags-container">
+    <div class="top-tags">
+      {% for tag in top_tags %}
+        <div class="top-tag-holder">
+          <a href="{% url 'deck_create' tag=tag.content %}">
+            <div class="top-tag" style="background-color:{{ tag.color_code }};">
+              {{ tag.content }}<span style="font-size:.5em">({{ tag.num_questions }})</span>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="all-tags-container">
+    {% for tag in all_tags %}
+      <div class="all-tag">
+      <a style="text-decoration:none;"
+        href="{% url 'deck_create' tag=tag.content %}">
+        <button class="mini-tag" style="background-color:{{ tag.color_code }};">
+          <span style="font-size:1.2em">{{ tag.content }}</span>
+        </button>
+      </a>
+      <span style="font-size:1em">({{ tag.num_questions }})</span>
+      </div>
+    {% endfor %}
+  </div>
+</main>
+<footer class="flex flex-wrap justify-center">
+  <div class="pa3 mr2">
+    <i class="fab fa-github-square fa-3x"></i>
+  </div>
+  <div class="pa3 mr2">
+    <i class="fab fa-facebook-square fa-3x" ></i>
+  </div>
+  <div class="pa3 mr2">
+    <i class="fab fa-instagram fa-3x" ></i>
+  </div>
+</footer>
 {% endblock %}

@@ -1,13 +1,10 @@
-
-# LOGIN AND LOGOUT NEED REDIRECT
-#handled for the moment ;)
-
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import ProfileForm
 from .models import Profile
+from flashr.models import Question, Answer
 
 # Create your views here.
 def register(request):
@@ -28,6 +25,7 @@ def register(request):
           # worked !
           user = User.objects.create_user(username=username, password=password, email=email)
           user.save()
+          Profile.objects.create(user_id=user.id)
           return redirect('login')
     else:
       return render(request, 'accounts/register.html', {'error': 'Passwords do not match'})
@@ -43,7 +41,7 @@ def login(request):
 
     if user is not None:
       auth.login(request, user)
-      return render(request, 'accounts/profile.html')
+      return redirect('profile')
     else:
       return render(request, 'accounts/login.html', {'error': 'Invalid Credentials...'})
 
@@ -69,6 +67,12 @@ def profile_create(request):
 
 @login_required
 def profile(request):
-  user = request.user
-  profile = Profile.objects.get(user=user.pk)
-  return render(request, 'accounts/profile.html', {'profile': profile})
+  profile = request.user.profile
+  quests = Question.objects.filter(answer__author=profile).distinct('id')
+  print('quests', quests)
+  questions = []
+  for quest in quests:
+    questions.append({'question':quest, 'answer':quest.answer.all()[0]})
+
+  print(questions)
+  return render(request, 'accounts/profile.html', {'profile': profile, 'questions': questions})
