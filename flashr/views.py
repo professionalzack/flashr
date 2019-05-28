@@ -19,9 +19,23 @@ def landing(request):
 #Questions
 @login_required
 def question_show(request, pk):
-  question = Question.objects.get(pk=pk)
-  card_tags = question.tags.all()
-  return render(request, 'flashr/card.html', {'question': question, 'card_tags': card_tags})
+  profile = request.user.profile
+  card = Question.objects.get(pk=pk)
+  card_tags = card.tags.all()
+  values = {'question': card, 'card_tags': card_tags}
+  try: #adds user's previous answer if present
+    current_answer = Answer.objects.get(author=profile, question=card)
+    print(current_answer)
+    values['current_answer'] = current_answer
+  except ObjectDoesNotExist:
+    pass
+  
+  try: #updates values to include most recent pain if applicable
+    pain = Pain.objects.filter(profile=profile, question=card).latest('time_stamp')#.order_by('-time_stamp')[0:1].get()
+    values['pain'] = pain
+  except ObjectDoesNotExist: 
+    pass
+  return render(request, 'flashr/card.html', values)
 
 #Deck
 ##show one deck item
@@ -38,7 +52,7 @@ def deck_show(request, tag, idx):
   if idx == count:
     values['last_card'] = True
   
-  try:
+  try: #adds user's previous answer if present
     current_answer = Answer.objects.get(author=profile, question=card)
     values['current_answer'] = current_answer
   except ObjectDoesNotExist:

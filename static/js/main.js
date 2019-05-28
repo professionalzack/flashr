@@ -19,10 +19,10 @@ function showAnswer(e) {
   $('.hiders').fadeIn()
   if ($x.css('display') === "none") {
     $x.fadeIn();
-    $button.text("Hide Previous Answer");
+    $button.text("Hide Selected Answer");
   } else {
     $x.fadeOut();
-    $button.text("Show Previous Answer");
+    $button.text("Show Selected Answer");
   }
 }
 // function showAnswer(e) {
@@ -139,12 +139,14 @@ sendVote = e => {
 // Sending an Answer
 sendAnswer = () => {
   let ansArr = $('.answerform').serializeArray();
-  if(ansArr[0].value === ''){
+  let val = ansArr.pop().value
+  console.log(ansArr)
+  if(val === ''){
     alert('still havent handled empty answer response, zack ?')
   }else{
     answer = {
       "public":ansArr.length,
-      "content": ansArr[0].value,
+      "content": val,
       "question_id":$('.question')[0].id
     }
     $('#current-answer>h4').text(answer.content) //optimistic update :)
@@ -173,11 +175,19 @@ function create_post(url, data,
     });
 }
 
+endOfTheLine = () => {
+  if(confirm('//MAKE THIS A MODAL WITH A FUN GIF THANKS//\nhead back to profile?')){$(location).attr('href','/accounts/profile')}
+}
+
 // Event Listeners
 $('.pain-chart').on('click', 'a', sendPain);
 $('.vote').on('click', sendVote);
 $('#showAnswer').on('click', showAnswer)
 $('#sendAnswer').on('click', sendAnswer)
+$('.deck-end').on('click', endOfTheLine)
+
+
+
 
 
 // $(document).ready(function(){
