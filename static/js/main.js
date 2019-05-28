@@ -1,6 +1,12 @@
 $( document ).ready(function() {
 console.log("hello world");
-$(`#pain${$('.pain-chart')[0].id}`).css('text-shadow', '1px 1px 5px red')
+
+setPain = x => {
+  $('.pain-btn').css('text-shadow', 'none')
+  $(`#pain${x}`).css('text-shadow', '1px 1px 5px red')
+}
+
+setPain($('.pain-chart')[0].id)
 
 let display = $('.answer-toggler').length > 0 ? 'none' : 'block';
 $('.hiders').css('display', display)
@@ -10,9 +16,7 @@ function showAnswer(e) {
   e.preventDefault()
   const $button = $('.answer-toggler');
   const $x = $('#current-answer');
-  const $y = $('.hiders');
-  // ($x.css('diplay') == 'none') ? $x.fadeIn() : $x.fadeOut()
-  $y.fadeIn()
+  $('.hiders').fadeIn()
   if ($x.css('display') === "none") {
     $x.fadeIn();
     $button.text("Hide Previous Answer");
@@ -39,8 +43,12 @@ function showAnswer(e) {
 
 handlePain = data => {
   console.log('handeld through whaterver', data)
-  $('.pain-btn').css('text-shadow', 'none')
-  $(`#pain${data.pain_level}`).css('text-shadow', '1px 1px 5px red')
+  setPain(data.pain_level)//realistic update :)
+}
+
+handleAnswer = data => {
+  console.log('ajax answer response', data)
+  $('#current-answer>h4').text(data.content) //realistic update :)
 }
 
 
@@ -50,6 +58,7 @@ sendPain = e => {
     "level":e.target.id.slice(-1), 
     "question_id":$('.question')[0].id
   }
+  setPain(pain.level) // optimistic update :)
   create_post('/pain', pain, handlePain)
 }
 
@@ -63,8 +72,10 @@ sendAnswer = () => {
       "content": ansArr[0].value,
       "question_id":$('.question')[0].id
     }
+    $('#current-answer>h4').text(answer.content) //optimistic update :)
+
     console.log(answer)
-    // create_post('/answer', answer)
+    create_post('/answer', answer, handleAnswer)
   }
 }
 
