@@ -86,6 +86,11 @@ def card_community(request, pk):
   # Cache all public answers for current question, and all votes for those answers
   answers = Answer.objects.filter(public=True,question=question).prefetch_related('question')
   votes = Vote.objects.filter(answer__question=question).prefetch_related('answer')
+  ## get all the users votes
+  user_votes = votes.filter(profile=user.profile)
+  ## append them to the relevant answer
+  user_votes = votes.filter(profile=user.profile,answer_id=OuterRef('pk')).values('vote')
+  answers = answers.annotate(user_vote=Subquery(user_votes))
 
   ## Count up all the votes and sort by the top Answers
   ## Step 1: Count up the yes' and the no's
@@ -156,6 +161,7 @@ def send_vote(request):
     profile = request.user.profile
     vote_choice = int(request.POST['vote'])
     answer = Answer.objects.get(id=request.POST['answer_id'])
+    action = request.POST['action']
 
     # print('vote:', vote_choice)
     # print('type? ', type(vote_choice))
@@ -170,13 +176,19 @@ def send_vote(request):
       Vote.objects.create(vote=vote_choice, answer=answer, profile=profile)
       response['status'] = 200
       response['vote'] = vote_choice
+      response['a_id'] = answer.id
     elif (vote_choice == 0):
       # print('un-vote detected...')
       # 0 means they are 'un-voting', ie taking back a vote
       # Delete any existing votes from this user for this answer
-      Vote.objects.filter(profile=user.profile, answer=answer).delete()
+      Vote.objects.filter(profile=profile, answer=answer).delete()
+      if (action == 'up'):
+        vote_choice = -1
+      elif (action == 'down'):
+        vote_choice = 1
       response['status'] = 200
       response['vote'] = vote_choice
+      response['a_id'] = answer.id
     else:
       # print('invalid vote detected...')
       # Not a valid vote

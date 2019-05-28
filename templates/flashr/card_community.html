@@ -9,9 +9,17 @@
   {% for answer in answers %}
     <div class="answer-item" data-answer-pk="{{ answer.id }}">
       <div class="vote-content">
-        <i class="vote far fa-arrow-alt-circle-up"></i>
+        {% if answer.user_vote == 1 %}
+          <i class="vote fas fa-arrow-alt-circle-up"></i>
+        {% else %}
+          <i class="vote far fa-arrow-alt-circle-up"></i>
+        {% endif %}
         <p class="vote-count" data-vote="{{ answer.total_vote }}">{{ answer.total_vote }}</p>
-        <i class="vote far fa-arrow-alt-circle-down"></i>
+        {% if answer.user_vote == -1 %}
+          <i class="vote fas fa-arrow-alt-circle-down"></i>
+        {% else %}
+          <i class="vote far fa-arrow-alt-circle-down"></i>
+        {% endif %}
       </div>
       <div class="answer-content">
         <p>{{ answer.content }}</p>
