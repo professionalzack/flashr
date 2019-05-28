@@ -35,6 +35,10 @@ footer{
 }
 
 /* landing.html */
+main.landing-main {
+  max-width: 1000px;
+  margin: 0 auto;
+}
 .landing-header{
   text-align: center;
   font-size: 10vh;
@@ -58,22 +62,25 @@ footer{
   flex-direction: column;
   padding: 5px;
 }
-.top-tags{
+.top-tags {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   justify-content: space-around;
 }
-.top-tags li{
-  list-style: none;
+.top-tag-holder {
+  display: inline-block;
+}
+.top-tag {
+  /* list-style: none; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   text-align: center;
   font-size: 3em;
   height: 20vh;
   width: 30vh;
   line-height: 20vh;
   color: white;
-  /* border: 1px solid red; */
-  /* background-color: white; */
   border-radius: 20px;
+  margin: 10px 0;
 }
 .all-tags{
   display: flex;

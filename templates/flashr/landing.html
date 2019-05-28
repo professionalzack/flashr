@@ -1,18 +1,20 @@
 {% extends '../base.html' %} 
 
 {% block content %}
-<main>
+<main class="landing-main">
   <h1 class="landing-header">FL*SHR</h1>
   <div class="top-tags-container">
-    <ul class="top-tags">
+    <div class="top-tags">
       {% for tag in top_tags %}
-        <a href="{% url 'deck_create' tag=tag.content %}">
-          <li style="background-color:{{ tag.color_code }};">
-            {{ tag.content }}<span style="font-size:.5em">({{ tag.num_questions }})</span>
-          </li>
-        </a>
+        <div class="top-tag-holder">
+          <a href="{% url 'deck_create' tag=tag.content %}">
+            <div class="top-tag" style="background-color:{{ tag.color_code }};">
+              {{ tag.content }}<span style="font-size:.5em">({{ tag.num_questions }})</span>
+            </div>
+          </a>
+        </div>
       {% endfor %}
-    </ul>
+    </div>
   </div>
   <div class="all-tags-container">
     {% for tag in all_tags %}
