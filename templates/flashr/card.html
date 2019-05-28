@@ -12,8 +12,16 @@
   <div>
     <article class="center mw5 mw6-ns hidden ba mv4">
       <h1 class="f4 bg-near-black white mv0 pv2 ph3">
-        Question
-        {% for tag in card_tags %}
+        {{ question.title }}        
+      </h1>
+      <div class="pa3 bt">
+        {% if question.content %}
+        <p class="f6 lh-copy mt2 mid-gray">
+          {{ question.content }}
+        </p>
+        {% endif %}
+        <div class="tr">
+          {% for tag in card_tags %}
           <a style="text-decoration:none;"
             href="{% url 'deck_create' tag=tag.content %}"
           >
@@ -24,18 +32,8 @@
               {{ tag.content }}
             </button>
           </a>
-        {% endfor %}
-      </h1>
-      <div class="dtc tr">
-        <div class="pa2 ph3-ns pb3-ns">
-          <div class="dt w-100 mt1">
-            <p class="f6 lh-copy mt2 mid-gray">
-              {{ question.title }}
-              {{ pain.level }}
-            </p>
-          </div>
+          {% endfor %}
         </div>
-      </div>
       </div>
     </article>
   </div>
@@ -105,27 +103,25 @@
           <!-- <small id="name-desc" class="f6 black-60 db mb2"
             >Write the answer in code form with explanations.</small
             > -->
-          <!-- </form> -->
-          <small class=" f6 black-60 db mb2">
-              Save this answer as your answer?
-          </small>
+          <!-- </form> -->  
           <a id="sendAnswer"
             class="f6 link dim br3 ph3 pv2 mb2 dib white bg-mid-gray"
             href="#0">
             Save Answer
           </a>
-          <div class="answer-methods"></div>
-        </div>
-      
-        {% if current_answer %}
-        <div class="tr">
+          {% if current_answer %}
           <a id="showAnswer" 
             class="answer-toggler f6 link dim br3 ph3 pv2 mb2 dib white bg-dark-green"
             href="#0">
           Show Previous Answer
           </a>
+          {% endif %}
+          <div class="answer-methods"></div>
+          <small class=" f6 black-60 db mb2">
+              Save this answer as your answer?
+          </small>
         </div>
-        {% endif %}
+
         <div class="answer-box" id="current-answer">
             <h4>{{ current_answer.content }}</h4>
         </div>
