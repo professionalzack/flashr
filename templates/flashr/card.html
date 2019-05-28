@@ -106,15 +106,22 @@
           <a id="community-chest" 
           class="f6 link dim br3 ph3 pv2 mb2 dib white bg-gold"
           href="{% url 'card_community' pk=question.id %}">
+          {% if community %}
           Community
-          </a>
-          {% if current_answer %}
-          <a id="showAnswer" 
-            class="answer-toggler f6 link dim br3 ph3 pv2 mb2 dib white bg-dark-green"
-          >
-          Show Selected Answer
-          </a>
+          {% else %}
+          <span class="crossed-out">Community</span>
           {% endif %}
+          </a>
+          <a id="showAnswer" 
+          class="answer-toggler f6 link dim br3 ph3 pv2 mb2 dib white bg-dark-green"
+          >
+          
+          {% if current_answer %}
+          Show Selected Answer
+          {% else %}
+          <span class="crossed-out">Show Selected Answer</span>
+          {% endif %}
+          </a>
           
           <a id="sendAnswer"
           class="hiders f6 link dim br3 ph3 pv2 mb2 dib white bg-mid-gray"
