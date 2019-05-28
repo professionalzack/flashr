@@ -1,0 +1,32 @@
+{% extends './card.html' %}
+
+{% block community %}
+
+<h1>Test Community</h1>
+{% comment %} <p>{{ question.id }}</p> {% endcomment %}
+
+<div class="answers-holder">
+  {% for answer in answers %}
+    <div class="answer-item" data-answer-pk="{{ answer.id }}">
+      <div class="vote-content">
+        {% if answer.user_vote == 1 %}
+          <i class="vote fas fa-arrow-alt-circle-up"></i>
+        {% else %}
+          <i class="vote far fa-arrow-alt-circle-up"></i>
+        {% endif %}
+        <p class="vote-count" data-vote="{{ answer.total_vote }}">{{ answer.total_vote }}</p>
+        {% if answer.user_vote == -1 %}
+          <i class="vote fas fa-arrow-alt-circle-down"></i>
+        {% else %}
+          <i class="vote far fa-arrow-alt-circle-down"></i>
+        {% endif %}
+      </div>
+      <div class="answer-content">
+        <p>{{ answer.content }}</p>
+      </div>
+      {% comment %} <i class="fas fa-arrow-alt-circle-up"></i> {% endcomment %}
+      {% comment %} <i class="fas fa-arrow-alt-circle-down"></i>  {% endcomment %}
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

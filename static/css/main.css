@@ -178,6 +178,33 @@ footer{
 
 }
 
+/* card_community.html */
+.answers-holder {
+  margin: 5px 20px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.answer-item {
+  display: flex;
+  flex-direction: row;
+}
+.vote-content {
+  border: 2px solid black;
+  width: 30px
+}
+.answer-content {
+  border: 2px solid black;
+  width: 100%;
+}
+.vote {
+  font-size: 2em;
+}
+.vote.disabled {
+  color: grey;
+}
+
+
 /* 
 footer {
   margin-top: 40px;

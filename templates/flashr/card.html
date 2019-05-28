@@ -82,7 +82,7 @@
       > -->
     </div>
   </form>
-  <button class="answering" onclick="answerMe">answerd toady</button>
+  <button class="answering" onclick="sendAnswer">answerd toady</button>
 {% endif %}
 
 <div class="pain-chart" id={{pain.level}}>
@@ -104,4 +104,7 @@
   <h3>Galaxy is on orions belt</h3>
 </div>
 {% endcomment %}
+  {% block community %}
+  {% endblock %}
+
 {% endblock %}

@@ -45,3 +45,12 @@ class Answer(models.Model):
 
   def __str__(self):
     return self.content
+
+class Vote(models.Model):
+  profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='vote')
+  answer = models.ForeignKey(Answer, on_delete=models. CASCADE, related_name='vote')
+  vote = models.IntegerField() # test with default=0
+  time_stamp = models.DateTimeField(default=timezone.now)
+
+  def __str__(self):
+    return str(self.vote)
