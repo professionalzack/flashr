@@ -4,35 +4,28 @@
   padding: 0;
 }
 
-
 /* Base.html */
 .body {
   background-color: white;
   margin: 2.5vh 5vw;
 }
-
 .base-top{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-
 .logo-block{
   display: flex;
 }
-
 .fa-asterisk{
   margin: auto 0;
 }
-
 /* nav {
   margin: auto 0;
 }
-
 nav > a {
   margin: 0 1vw;
 } */
-
 footer{
   position: fixed;
   bottom: 5vh;
@@ -46,19 +39,16 @@ footer{
   font-size: 15vh;
   margin: 0 0 2vh 0;
 }
-
 .top-tags-container{
   /* display: flex;
   flex-direction: row;
   justify-content: space-around; */
 }
-
 .top-tags{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
-
 .top-tags > li{
   list-style: none;
   text-align: center;
@@ -67,12 +57,10 @@ footer{
   border: 1px solid red;
   background-color: white;
 }
-
 .all-tags{
   display: flex;
   flex-direction: row;
 }
-
 .all-tags > li{
   list-style: none;
   text-align: center;
@@ -90,39 +78,32 @@ footer{
   flex-direction: column;
   align-items: center;
 }
-
 .user-info{
   display: flex;
   flex-direction: row;
 }
-
 .username{
   display: flex;
   margin: auto 2vw;
 }
-
 .user-else{
   display: flex;
   flex-direction: column;
   margin: auto 2vw;
 }
-
 .profile-img{
   width: 100%;
   height: auto;
   overflow: hidden;
 }
-
 .profile-container > p {
   margin: 1vh;
 }
-
 .profile_body{
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-
 .profile_body > ul > li:nth-child(1){
   z-index: 0;
   list-style: none;
@@ -132,7 +113,6 @@ footer{
   background-color: #d1d1d1;
   border: 2px solid black;
 }
-
 .profile_body > ul > li:nth-child(2){
   z-index: 2;
   list-style: none;
@@ -144,25 +124,21 @@ footer{
 }
 
 /* register.html */
-
 .input-fields{
   display: flex;
   flex: column;
   justify-content: space-between;
   width: 30vw;
 }
+/*.input-fields > label {
 
-.input-fields > label {
-  
-}
-
+} */
 .deck-wrapper {
   display: flex;
   justify-content: space-evenly;
   padding-left: 50px;
   padding-right: 50px;
 }
-
 .mini-tag {
   border: none;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -176,28 +152,50 @@ footer{
   font-size: .75em;
   margin: 4px 2px;
   border-radius: 10px;
-
 }
-
 .pain-chart {
   font-size: 50px;
   text-align: center;
   padding: 20px;
 }
+  
+/* card_community.html */
+.answers-holder {
+  margin: 5px 20px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.answer-item {
+  display: flex;
+  flex-direction: row;
+}
+.vote-content {
+  border: 2px solid black;
+  width: 30px
+}
+.answer-content {
+  border: 2px solid black;
+  width: 100%;
+}
+.vote {
+  font-size: 2em;
+}
+.vote.disabled {
+  color: grey;
+}
 
+/* card.html */
 .feeling {
   color: gray;
   font-size: 10px;
 }
-
 .answerform {
   text-align: center;
 }
-
 .input-reset {
   display: inline-block;
 }
-
 .measure {
   border: 1px solid;
   max-width: none; 
@@ -205,9 +203,6 @@ footer{
 .pain-btn {
   cursor: pointer;
 }
-
-
 .hiders, #current-answer {
   display: none;
 }
-
