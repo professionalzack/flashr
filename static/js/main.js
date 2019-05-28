@@ -43,10 +43,13 @@ handleVote = data => {
   $('.vote').on('click', sendVote);
   $('.vote').removeClass('disabled')
   if (data.error) {
-    console.log('Error received: ', data.error);
+    console.log('Error received: ', data);
   } else {
-    console.log('vote: response included: ', data.vote)
+    console.log('vote: response included: ', data)
   }
+  // Update the total vote count based on ajax response and starting value
+  const voteValue = parseInt($(`[data-answer-pk="${data.a_id}"]`).find('.vote-count').attr('data-vote'));
+  $(`[data-answer-pk="${data.a_id}"]`).find('.vote-count').text(voteValue + parseInt(data.vote))
 }
 sendVote = e => {
   // e.preventDefault();
@@ -69,22 +72,20 @@ sendVote = e => {
   // determine vote action and perform optimistic update
   if (state === 'on') {
     vote = 0; // "un-voting" a voted action
-    $(e.target).siblings('.vote-count').text(voteValue);
     $(e.target).removeClass('fas').addClass('far');
   } else if (action === 'up' && state === 'off') {
     vote = 1; // voted yes
-    $(e.target).siblings('.vote-count').text(voteValue + 1)
     $(e.target).removeClass('far').addClass('fas');
     $(e.target).siblings('.vote').removeClass('fas').addClass('far');
   } else if (action === 'down' && state === 'off') {
     vote = -1; // voted no
-    $(e.target).siblings('.vote-count').text(voteValue - 1)
     $(e.target).removeClass('far').addClass('fas');
     $(e.target).siblings('.vote').removeClass('fas').addClass('far');
   }
   // Send the ajax request
   vote = {
     vote: vote,
+    action: action,
     answer_id: id,
   }
   console.log('sending.. ', vote)
