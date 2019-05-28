@@ -254,3 +254,7 @@ a:link, a:visited, a:hover, a:active {
   text-decoration:none;
   color: black;
 }
+
+.crossed-out {
+  text-decoration: line-through;
+}

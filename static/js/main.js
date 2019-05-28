@@ -7,9 +7,10 @@ setPain = x => {
 }
 
 setPain($('.pain-chart')[0].id)
+$('.hiders').fadeIn()
 
-let display = $('.answer-toggler').length > 0 ? 'none' : 'block';
-$('.hiders').css('display', display)
+// let display = $('.answer-toggler').length > 0 ? 'none' : 'block';
+// $('.hiders').css('display', display)
 $('#current-answer').css('display', 'none')
 
 function showAnswer(e) {
@@ -25,20 +26,6 @@ function showAnswer(e) {
     $button.text("Show Selected Answer");
   }
 }
-// function showAnswer(e) {
-//   e.preventDefault()
-//   button = document.querySelector('.answer-toggler');
-//   const x = document.getElementById('current-answer');
-//   const y = document.querySelector('.hiders');
-//   if (x.style.display === "none") {
-//     x.style.display = "block";
-//     button.innerHTML = "Hide Previous Answer"
-//   } else {
-//     x.style.display = "none";
-//     button.innerHTML = "Show Previous Answer"
-//   }
-//   y.style.display = "block";
-// }
 
 // Sending Pain
 handlePain = data => {
@@ -47,6 +34,7 @@ handlePain = data => {
 }
 handleAnswer = data => {
   console.log('ajax answer response', data)
+  $('.crossed-out').removeClass('crossed-out')
   $('#current-answer>h4').text(data.content) //realistic update :)
 }
 sendPain = e => {

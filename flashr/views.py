@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.functions import Coalesce
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from contextlib import suppress
 import simplejson as json
 from .models import Tag, Question, Deck, Pain, Answer, Vote
 
@@ -17,61 +18,30 @@ def landing(request):
   return render(request, 'flashr/landing.html', {'all_tags': all_tags, 'top_tags': top_tags})
 
 #Questions
+#show one card from anywhere to anywhere
 @login_required
-def question_show(request, pk):
+def card_show(request, **kwargs):
   profile = request.user.profile
-  card = Question.objects.get(pk=pk)
-  card_tags = card.tags.all()
-  values = {'question': card, 'card_tags': card_tags}
-  try: #adds user's previous answer if present
-    current_answer = Answer.objects.get(author=profile, question=card)
-    print(current_answer)
-    values['current_answer'] = current_answer
-  except ObjectDoesNotExist:
-    pass
-  
-  try: #updates values to include most recent pain if applicable
-    pain = Pain.objects.filter(profile=profile, question=card).latest('time_stamp')#.order_by('-time_stamp')[0:1].get()
-    values['pain'] = pain
-  except ObjectDoesNotExist: 
-    pass
+  if 'idx' in kwargs: 
+    idx = kwargs['idx']
+    deck = Deck.objects.filter(profile=profile) #grabs the subquery so only one db delve
+    count = deck.count() #counts the cards obv
+    card = deck.get(order_idx=idx).question #gets the single card in question
+    values = {'question': card, 'tag': kwargs['tag'], 'deck_idx': idx, 'last_card': (idx == count)}
+    # values['last_card'] = (idx == count)
+  else:
+    card = Question.objects.get(pk=kwargs['pk'])
+    values = {'question': card}
+
+  values['card_tags'] = card.tags.all()
+  values['community'] = Answer.objects.filter(question=card, public=True).exists()
+  with suppress(ObjectDoesNotExist):
+    values['current_answer'] = Answer.objects.get(author=profile, question=card)
+  with suppress(ObjectDoesNotExist):
+    values['pain'] = Pain.objects.filter(profile=profile, question=card).latest('time_stamp')#.order_by('-time_stamp')[0:1].get()
+
   return render(request, 'flashr/card.html', values)
 
-#Deck
-##show one deck item
-@login_required
-def deck_show(request, tag, idx):
-  profile = request.user.profile
-  deck = Deck.objects.filter(profile=profile) #grabs the subquery so only one db delve
-  count = deck.count() #counts the cards obv
-  card = deck.get(order_idx=idx).question #gets the single card in question
-  card_tags = card.tags.all() #gets all the tags the question has
-  
-  values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'deck_idx': idx}
-
-  if idx == count:
-    values['last_card'] = True
-  
-  try: #adds user's previous answer if present
-    current_answer = Answer.objects.get(author=profile, question=card)
-    values['current_answer'] = current_answer
-  except ObjectDoesNotExist:
-    pass
-
-
-  try: #updates values to include most recent pain if applicable
-    pain = Pain.objects.filter(profile=profile, question=card).latest('time_stamp')#.order_by('-time_stamp')[0:1].get()
-    values['pain'] = pain
-  except ObjectDoesNotExist: 
-    pass
-## Alternative method to show pain
-#  pains = Pain.objects.all().prefetch_related('profile', 'question') # get once and cache in pains variable
-#  if pains.filter(profile=user.profile,question__id=card.id).exists():
-#    pain = pains.filter(profile=user.profile,question__id=card.id).latest('time_stamp').level
-#  else:
-#    pain = None
-#  values = {'question': card, 'card_tags': card_tags, 'tag': tag, 'deck_idx': idx, 'count': count, 'pain': pain}
-  return render(request, 'flashr/card.html', values)
 
 @login_required
 def deck_create(request, tag):
@@ -162,17 +132,14 @@ def send_pain(request):
 def send_answer(request):
   print(request.POST)
   if request.method == 'POST':
-
     profile = request.user.profile
-
     content = request.POST['content']
-    public = ((True, False) [int(request.POST['public']) == 2 ])
+    public = ((True, False) [int(request.POST['public']) == 1 ])
     question = Question.objects.get(id=request.POST['question_id'])
 
-    try:
+    with suppress(ObjectDoesNotExist):
       Answer.objects.get(author=profile,question=question ).delete()
-    except ObjectDoesNotExist:
-      pass
+
     
     Answer.objects.create(content=content, public=public, question=question, author=profile)
 
