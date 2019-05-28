@@ -154,25 +154,31 @@ def send_vote(request):
   # print(request.POST)
   if request.method == 'POST':
     profile = request.user.profile
-    vote_choice = request.POST['vote']
+    vote_choice = int(request.POST['vote'])
     answer = Answer.objects.get(id=request.POST['answer_id'])
 
+    # print('vote:', vote_choice)
+    # print('type? ', type(vote_choice))
+    # print('answer :', answer)
     response = {}
     # Validate the vote value for the expected values
     if (vote_choice == 1) or (vote_choice == -1):
+      # print('yes or no vote detected...')
       # Delete any existing votes from this user for this answer
-      Vote.objects.filter(profile=user.profile, answer=answer).delete()
+      Vote.objects.filter(profile=profile, answer=answer).delete()
       # Add the user's vote for this question
-      Vote.objects.create(vote=vote_choice, question=question, profile=profile)
+      Vote.objects.create(vote=vote_choice, answer=answer, profile=profile)
       response['status'] = 200
       response['vote'] = vote_choice
     elif (vote_choice == 0):
+      # print('un-vote detected...')
       # 0 means they are 'un-voting', ie taking back a vote
       # Delete any existing votes from this user for this answer
       Vote.objects.filter(profile=user.profile, answer=answer).delete()
       response['status'] = 200
       response['vote'] = vote_choice
     else:
+      # print('invalid vote detected...')
       # Not a valid vote
       response['status'] = 400
       response['error'] = "Invalid vote option"
