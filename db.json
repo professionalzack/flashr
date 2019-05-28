@@ -17,12 +17,12 @@
   {"model": "flashr.pain", "pk": 4, "fields": {"profile": 25, "question": 3, "level": 4, "time_stamp" : "2019-05-22T01:00:00+03:00"}},
   {"model": "flashr.pain", "pk": 5, "fields": {"profile": 25, "question": 2, "level": 1, "time_stamp" : "2019-05-20T01:00:00+03:00"}},
   {"model": "flashr.answer", "pk": 1, "fields": {"author": 25, "question": 1, "public": "True", "content": "This is an answer"}},
-  {"model": "flashr.answer", "pk": 2, "fields": {"author": 25, "question": 1, "public": "True", "content": "This is another answer"}},
+  {"model": "flashr.answer", "pk": 2, "fields": {"author": 25, "question": 4, "public": "True", "content": "This is another answer"}},
   {"model": "flashr.answer", "pk": 3, "fields": {"author": 25, "question": 2, "public": "True", "content": "Answers for days"}},
-  {"model": "flashr.answer", "pk": 4, "fields": {"author": 25, "question": 2, "public": "True", "content": "Do you know the answer?"}},
+  {"model": "flashr.answer", "pk": 4, "fields": {"author": 25, "question": 5, "public": "True", "content": "Do you know the answer?"}},
   {"model": "flashr.answer", "pk": 5, "fields": {"author": 25, "question": 3, "public": "True", "content": "I hope you are having a great day"}},
   {"model": "flashr.vote", "pk": 1, "fields": {"profile": 25, "answer": 1, "vote": 1}},
-  {"model": "flashr.vote", "pk": 2, "fields": {"profile": 25, "answer": 1, "vote": 1}},
+  {"model": "flashr.vote", "pk": 2, "fields": {"profile": 25, "answer": 4, "vote": 1}},
   {"model": "flashr.vote", "pk": 3, "fields": {"profile": 25, "answer": 2, "vote": -1}},
   {"model": "flashr.vote", "pk": 4, "fields": {"profile": 25, "answer": 3, "vote": 1}}
 ]
