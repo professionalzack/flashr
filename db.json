@@ -15,7 +15,7 @@
   {"model": "flashr.tag", "pk": 10, "fields": {"content": "nosql", "color_code": "#B45F04"}},
   {"model": "flashr.tag", "pk": 11, "fields": {"content": "sql", "color_code": "#8904B1"}},
   {"model": "flashr.question", "pk": 1, "fields": {"author": 25, "title": "Does a hyperlink only apply to text?", "tags": [1]}},
-  {"model": "flashr.question", "pk": 2, "fields": {"author": 25, "title": "What is semantic HTML?", "tags": [2]}},
+  {"model": "flashr.question", "pk": 2, "fields": {"author": 25, "title": "What is semantic HTML?", "tags": [1]}},
   {"model": "flashr.question", "pk": 3, "fields": {"author": 25, "title": "Can you create a multi colored text on a web page?", "tags": [2,1]}},
   {"model": "flashr.question", "pk": 4, "fields": {"author": 25, "title": "How many tags can be used to separate section of texts?", "tags": [1]}},
   {"model": "flashr.question", "pk": 5, "fields": {"author": 25, "title": "What are empty elements?", "tags": [1]}},
