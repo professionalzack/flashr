@@ -1,77 +1,155 @@
 $( document ).ready(function() {
 console.log("hello world");
-$(`#pain${$('.pain-chart')[0].id}`).css('text-shadow', '1px 1px 5px red')
 
-let display = $('.answer-toggler').length > 0 ? 'none' : 'block';
-$('.hiders').css('display', display)
+setPain = x => {
+
+  $('.pain-btn').removeClass('painful')
+  $(`#pain${x}`).addClass('painful')
+}
+
+setPain($('.pain-chart')[0].id)
+$('.hiders').fadeIn()
+
+// let display = $('.answer-toggler').length > 0 ? 'none' : 'block';
+// $('.hiders').css('display', display)
+$('#current-answer').css('display', 'none')
 
 function showAnswer(e) {
   e.preventDefault()
   const $button = $('.answer-toggler');
   const $x = $('#current-answer');
-  const $y = $('.hiders');
-  // ($x.css('diplay') == 'none') ? $x.fadeIn() : $x.fadeOut()
-  $y.fadeIn()
+  $('.hiders').fadeIn()
   if ($x.css('display') === "none") {
     $x.fadeIn();
-    $button.text("Hide Previous Answer");
+    $button.text("Hide Selected Answer");
   } else {
     $x.fadeOut();
-    $button.text("Show Previous Answer");
+    $button.text("Show Selected Answer");
   }
 }
-// function showAnswer(e) {
-//   e.preventDefault()
-//   button = document.querySelector('.answer-toggler');
-//   const x = document.getElementById('current-answer');
-//   const y = document.querySelector('.hiders');
-//   if (x.style.display === "none") {
-//     x.style.display = "block";
-//     button.innerHTML = "Hide Previous Answer"
-//   } else {
-//     x.style.display = "none";
-//     button.innerHTML = "Show Previous Answer"
-//   }
-//   y.style.display = "block";
-// }
 
-
+// Sending Pain
 handlePain = data => {
-  console.log('handeld through whaterver', data)
-  $('.pain-btn').css('text-shadow', 'none')
-  $(`#pain${data.pain_level}`).css('text-shadow', '1px 1px 5px red')
+  console.log('handling pain: ', data)
+  setPain(data.pain_level)//realistic update :)
 }
-
-
+handleAnswer = data => {
+  console.log('ajax answer response', data)
+  $('.crossed-out').removeClass('crossed-out')
+  $('#current-answer>h4').text(data.content) //realistic update :)
+}
 sendPain = e => {
   e.preventDefault();
   pain = {
     "level":e.target.id.slice(-1), 
     "question_id":$('.question')[0].id
   }
+  setPain(pain.level) // optimistic update :)
   create_post('/pain', pain, handlePain)
 }
 
-sendAnswer = () => {
-  console.log('YEAH MA ND')
-  let ansArr = $('.answerform').serializeArray();
-  answer = {
-    "public":ansArr.length,
-    "content": ansArr[0].value,
-    "question_id":$('.question')[0].id
+// Sending a Vote
+submitVote = () => {
+  // Disable voting while ajax call is happening
+  console.log('vote: starting send...')
+  $('.vote').off();
+  $('.vote').addClass('disabled')
+}
+handleVote = data => {
+  // Re-enable disabled vote buttons
+  console.log('vote: send successful!')
+  $('.vote').on('click', sendVote);
+  $('.vote').removeClass('disabled')
+  if (data.error) {
+    console.log('Error received: ', data);
+  } else {
+    console.log('vote: response included: ', data)
   }
-  console.log(answer)
-  create_post('/answer', answer)
+  // Update the total vote count based on ajax response and starting value
+  // if un-voting, change by 1
+  // If yes/no, move but remember the center value so toggling yes/no works
+  const clickedAnswer = $(`[data-answer-pk="${data.a_id}"]`)
+  const storedVoteValue = parseInt(clickedAnswer.find('.vote-count').attr('data-vote'));
+  let voteValue = parseInt(clickedAnswer.find('.vote-count').text());
+  const vote = parseInt(data.vote);
+  if (vote === 0) {
+    if (data.action === 'up') {
+      clickedAnswer.find('.vote-count').text(voteValue - 1);
+      clickedAnswer.find('.vote-count').attr('data-vote', voteValue - 1)
+    } else if (data.action === 'down') {
+      clickedAnswer.find('.vote-count').text(voteValue + 1);
+      clickedAnswer.find('.vote-count').attr('data-vote', voteValue + 1)
+    }
+  } else if (vote === 1 || vote === -1) {
+    clickedAnswer.find('.vote-count').text(storedVoteValue + vote);
+  }  
+}
+sendVote = e => {
+  // e.preventDefault();
+  const id = parseInt($(e.target).closest('.answer-item').attr('data-answer-pk'));
+  const voteValue = parseInt($(e.target).siblings('.vote-count').attr('data-vote'));
+  let action, state, vote;
+  // get info on action
+  if (e.target.classList.contains('fa-arrow-alt-circle-up')) {
+    action = 'up';
+  }
+  if (e.target.classList.contains('fa-arrow-alt-circle-down')) {
+    action = 'down';
+  }
+  if (e.target.classList.contains('far')) {
+    state = 'off';
+  }
+  if (e.target.classList.contains('fas')) {
+    state = 'on';
+  }
+  // determine vote action and perform optimistic update
+  if (state === 'on') {
+    vote = 0; // "un-voting" a voted action
+    $(e.target).removeClass('fas').addClass('far');
+  } else if (action === 'up' && state === 'off') {
+    vote = 1; // voted yes
+    $(e.target).removeClass('far').addClass('fas');
+    $(e.target).siblings('.vote').removeClass('fas').addClass('far');
+  } else if (action === 'down' && state === 'off') {
+    vote = -1; // voted no
+    $(e.target).removeClass('far').addClass('fas');
+    $(e.target).siblings('.vote').removeClass('fas').addClass('far');
+  }
+  // Send the ajax request
+  vote = {
+    vote: vote,
+    action: action,
+    answer_id: id,
+  }
+  console.log('sending.. ', vote)
+  create_post('/vote', vote, handleVote, submitVote);
 }
 
+// Sending an Answer
+sendAnswer = () => {
+  let ansArr = $('.answerform').serializeArray();
+  let val = ansArr.pop().value
+  console.log(ansArr)
+  if(val === ''){
+    alert('still havent handled empty answer response, zack ?')
+  }else{
+    answer = {
+      "public":ansArr.length,
+      "content": val,
+      "question_id":$('.question')[0].id
+    }
+    $('#current-answer>h4').text(answer.content) //optimistic update :)
 
+    console.log(answer)
+    create_post('/answer', answer, handleAnswer)
+  }
+}
 
-
-
-
-
+// Ajax function
 function create_post(url, data, 
-  success=response => console.log(response)) {
+  success=response => console.log(response),
+  handleSend=()=> console.log('click')) {
+    console.log('vote ajax starting')
     // adds csrf to data
     csrf = $('.csrf').children()[0]
     data[csrf.name] = csrf.value
@@ -80,17 +158,24 @@ function create_post(url, data,
       url : url,
       method : "POST",
       data : data,
+      beforeSend: handleSend,
       success : success,
       error : error => console.log(error)
     });
 }
 
+endOfTheLine = () => {
+  if(confirm('YOU FINISHED \nCancel to stay on deck\nOK to go to profile')){$(location).attr('href','/accounts/profile')}
+}//MAKE THIS A MODAL WITH A FUN GIF THANKS//
 
-  
-
-$('.pain-chart').on('click', 'button', sendPain)
+// Event Listeners
+$('.pain-chart').on('click', 'a', sendPain);
+$('.vote').on('click', sendVote);
 $('#showAnswer').on('click', showAnswer)
 $('#sendAnswer').on('click', sendAnswer)
+$('.deck-end').on('click', endOfTheLine)
+
+
 
 
 
@@ -110,17 +195,12 @@ $('#sendAnswer').on('click', sendAnswer)
     //  $("a[href='" + window.location.hash + "']").parent(".reveal").click();
     // });
 
-
 // $(answers).each((i,child)=> {
 //   console.log('adding data['+child.name+']='+child.value);
 //   data[child.name]=child.value})
 
-
 //   data[child.name]=child.value
 // console.log('[get red')
 // getRed()
-
-
-
 
 });

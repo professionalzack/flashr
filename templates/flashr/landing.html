@@ -1,33 +1,33 @@
 {% extends '../base.html' %} 
 
 {% block content %}
-<main>
+<main class="landing-main">
   <h1 class="landing-header">FL*SHR</h1>
-  <div class="flex flex-wrap justify-center">
-    {% for tag in top_tags %}
-    <div class="w-25 pa3 mr2">
-      <article class="bg-white center mw5 ba b--black-10 mv4">
-        <div class="pv2 ph3">
-          <h1 class="f6 ttu tracked">{{ tag.content }}</h1>
+  <div class="top-tags-container">
+    <div class="top-tags">
+      {% for tag in top_tags %}
+        <div class="top-tag-holder">
+          <a href="{% url 'deck_create' tag=tag.content %}">
+            <div class="top-tag" style="background-color:{{ tag.color_code }};">
+              {{ tag.content }}<span style="font-size:.5em">({{ tag.num_questions }})</span>
+            </div>
+          </a>
         </div>
-        <img src="" class="w-100 db" alt="HTML CSS JS NODEJS HERE images.">
-        <div class="pa3">
-          <a href="{% url 'deck_create' tag=tag.content %}">Questions on {{ tag.content }}</a>
-          <small class="gray db pv2">AMP - <time>6 hours ago</time></small>
-        </div>
-      </article>
-    </div>  
-    {% endfor %}
+      {% endfor %}
+    </div>
   </div>
   <div class="all-tags-container">
-    <h1 class="f4 bold center mw5">All Tags</h1>
-    <ul class="list pl0 ml0 center mw5 ba b--light-silver br3">
-      {% for tag in all_tags %}
-      <li class="ph3 pv2 bb b--light-silver">
-        <a href="{% url 'deck_create' tag=tag.content %}">{{ tag.content }}</a>
-      </li>
-      {% endfor %}
-    </ul>
+    {% for tag in all_tags %}
+      <div class="all-tag">
+      <a style="text-decoration:none;"
+        href="{% url 'deck_create' tag=tag.content %}">
+        <button class="mini-tag" style="background-color:{{ tag.color_code }};">
+          <span style="font-size:1.2em">{{ tag.content }}</span>
+        </button>
+      </a>
+      <span style="font-size:1em">({{ tag.num_questions }})</span>
+      </div>
+    {% endfor %}
   </div>
 </main>
 <footer class="flex flex-wrap justify-center">
