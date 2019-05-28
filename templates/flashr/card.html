@@ -15,9 +15,11 @@
         {{ question.title }}        
       </h1>
       <div class="pa3 bt">
+        {% if question.content %}
         <p class="f6 lh-copy mt2 mid-gray">
           {{ question.content }}
         </p>
+        {% endif %}
         <div class="tr">
           {% for tag in card_tags %}
           <a style="text-decoration:none;"
@@ -119,7 +121,7 @@
               Save this answer as your answer?
           </small>
         </div>
-        
+
         <div class="answer-box" id="current-answer">
             <h4>{{ current_answer.content }}</h4>
         </div>
