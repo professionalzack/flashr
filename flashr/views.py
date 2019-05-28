@@ -44,7 +44,6 @@ def deck_show(request, tag, idx):
     pass
 
 
- 
   try: #updates values to include most recent pain if applicable
     pain = Pain.objects.filter(profile=profile, question=card).latest('time_stamp')#.order_by('-time_stamp')[0:1].get()
     values['pain'] = pain

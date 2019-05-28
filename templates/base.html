@@ -9,29 +9,36 @@
 
 	</head>
 	<body>
-		<div class="base-top">
+		<form class="csrf">{% csrf_token %}</form>
+		<nav class="db dt-l w-100 border-box pa3 ph5-l">
 			<div class="logo-block">
-				<i class="fas fa-asterisk fa-3x"></i>
-				<h1>FL*SHER</h1>
+				<a class="db dtc-l v-mid mid-gray link dim w-100 w-25-l tc tl-l mb2 mb0-l" href="/" title="Home">
+					<i class="fas fa-asterisk fa-2x">FL*SHER</i>
+				</a>
 			</div>
- 			<form class="csrf">{% csrf_token %}</form>
-			<nav>
-				<a href="/">Home</a>
+			<div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
 				{% if user.is_authenticated %}
-					<a href="{% url 'profile' %}">Profile</a>
-					<a href="{% url 'logout' %}">Logout</a>
+				<a class="link dim dark-gray f6 f5-l dib mr3 mr4-l" href="{% url 'profile' %}">
+					Profile
+				</a>
+				<a class="link dim dark-gray f6 f5-l dib mr3 mr4-l" href="{% url 'logout' %}">
+					Logout
+				</a>
 				{% else %}
-					<a href="{% url 'login' %}">Login</a>
-					<a href="{% url 'register' %}">Register</a>
+				<a class="link dim dark-gray f6 f5-l dib mr3 mr4-l" href="{% url 'login' %}">
+					Login
+				</a>
+				<a class="link dim dark-gray f6 f5-l dib" href="{% url 'register' %}">
+					Register
+				</a>
 				{% endif %}
-			</nav>
-		</div>
+			</div>
+		</nav>
 		{% block content %}
 		{% endblock %}
-		<script
-		src="https://code.jquery.com/jquery-3.4.1.js"
-		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-		crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.js"
+			integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			crossorigin="anonymous"></script>
 		<script src="{% static 'js/main.js' %}"></script>
 	</body>
 </html>

@@ -1,4 +1,4 @@
-*{
+* {
   /* border: 1px solid blue; */
   font-family: 'Roboto Mono', monospace;
   padding: 0;
@@ -25,13 +25,13 @@
   margin: auto 0;
 }
 
-nav{
+/* nav {
   margin: auto 0;
 }
 
-nav > a{
+nav > a {
   margin: 0 1vw;
-}
+} */
 
 footer{
   position: fixed;
@@ -157,10 +157,10 @@ footer{
 }
 
 .deck-wrapper {
-    display: flex;
-    justify-content: space-evenly;
-    padding: 30px;
-
+  display: flex;
+  justify-content: space-evenly;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .mini-tag {
@@ -199,11 +199,12 @@ footer{
 }
 
 .measure {
-  max-width: none;
+  border: 1px solid;
+  max-width: none; 
 }
-
-
-*/
+.pain-btn {
+  cursor: pointer;
+}
 
 
 .hiders, #current-answer {
