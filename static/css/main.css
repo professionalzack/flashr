@@ -29,33 +29,51 @@ nav > a {
 footer{
   position: fixed;
   bottom: 5vh;
-  margin: 0 40vw 0 40vw;
   height: auto;
+  text-align: center;
+  width: 100%;
 }
 
 /* landing.html */
 .landing-header{
   text-align: center;
-  font-size: 15vh;
+  font-size: 10vh;
   margin: 0 0 2vh 0;
 }
 .top-tags-container{
   /* display: flex;
   flex-direction: row;
   justify-content: space-around; */
+  margin: 50px 10px 20px;
+}
+.all-tags-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* padding: 10px; */
+  text-align: center;
+}
+.all-tag {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
 }
 .top-tags{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
-.top-tags > li{
+.top-tags li{
   list-style: none;
   text-align: center;
-  height: 30vh;
+  font-size: 3em;
+  height: 20vh;
   width: 30vh;
-  border: 1px solid red;
-  background-color: white;
+  line-height: 20vh;
+  color: white;
+  /* border: 1px solid red; */
+  /* background-color: white; */
+  border-radius: 20px;
 }
 .all-tags{
   display: flex;
@@ -162,11 +180,14 @@ footer{
   text-align: center;
   padding: 20px;
 }
-  
+
+h1 {
+  text-align: center;
+}
 /* card_community.html */
 .answers-holder {
   margin: 5px 20px;
-  padding: 5px;
+  /* padding: 5px; */
   display: flex;
   flex-direction: column;
 }
@@ -176,11 +197,22 @@ footer{
 }
 .vote-content {
   border: 2px solid black;
-  width: 30px
+  padding: 5px 10px;
+  text-align: center;
+}
+.vote-content h1 {
+  margin: 10px 0px;
 }
 .answer-content {
   border: 2px solid black;
   width: 100%;
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.answer-content h2 {
+  margin-top: 0px;
 }
 .vote {
   font-size: 2em;

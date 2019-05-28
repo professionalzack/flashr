@@ -4,6 +4,7 @@
 		<title>Fl*shr</title>
 		<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
 		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/prism.css' %}">
 		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
@@ -12,7 +13,7 @@
 		<form class="csrf">{% csrf_token %}</form>
 		<nav class="db dt-l w-100 border-box pa3 ph5-l">
 			<div class="logo-block">
-				<a class="db dtc-l v-mid mid-gray link dim w-100 w-25-l tc tl-l mb2 mb0-l" href="/" title="Home">
+				<a href="/" title="Home">
 					<i class="fas fa-asterisk fa-2x">FL*SHER</i>
 				</a>
 			</div>
@@ -40,5 +41,6 @@
 			integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 			crossorigin="anonymous"></script>
 		<script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/prism.js' %}"></script>
 	</body>
 </html>

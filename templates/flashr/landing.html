@@ -6,16 +6,26 @@
   <div class="top-tags-container">
     <ul class="top-tags">
       {% for tag in top_tags %}
-        <li><a href="{% url 'deck_create' tag=tag.content %}">{{ tag.content }}</a></li>
+        <a href="{% url 'deck_create' tag=tag.content %}">
+          <li style="background-color:{{ tag.color_code }};">
+            {{ tag.content }}<span style="font-size:.5em">({{ tag.num_questions }})</span>
+          </li>
+        </a>
       {% endfor %}
     </ul>
   </div>
   <div class="all-tags-container">
-    <ul class="all-tags">
-      {% for tag in all_tags %}
-        <li><a href="{% url 'deck_create' tag=tag.content %}">{{ tag.content }}</a></li>
-      {% endfor %}
-    </ul>
+    {% for tag in all_tags %}
+      <div class="all-tag">
+      <a style="text-decoration:none;"
+        href="{% url 'deck_create' tag=tag.content %}">
+        <button class="mini-tag" style="background-color:{{ tag.color_code }};">
+          <span style="font-size:1.2em">{{ tag.content }}</span>
+        </button>
+      </a>
+      <span style="font-size:1em">({{ tag.num_questions }})</span>
+      </div>
+    {% endfor %}
   </div>
 </main>
 <footer>
