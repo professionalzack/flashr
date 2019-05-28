@@ -65,7 +65,7 @@ sendPain = e => {
 sendAnswer = () => {
   let ansArr = $('.answerform').serializeArray();
   if(ansArr[0].value === ''){
-    alert('still havent handled empty response, zack ?')
+    alert('still havent handled empty answer response, zack ?')
   }else{
     answer = {
       "public":ansArr.length,
