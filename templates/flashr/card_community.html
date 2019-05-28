@@ -7,11 +7,11 @@
 
 <div class="answers-holder">
   {% for answer in answers %}
-    <div class="answer-item">
+    <div class="answer-item" data-answer-pk="{{ answer.id }}">
       <div class="vote-content">
-        <i class="far fa-arrow-alt-circle-up"></i>
-        <p>{{ answer.total_vote }}</p>
-        <i class="far fa-arrow-alt-circle-down"></i>
+        <i class="vote far fa-arrow-alt-circle-up"></i>
+        <p class="vote-count" data-vote="{{ answer.total_vote }}">{{ answer.total_vote }}</p>
+        <i class="vote far fa-arrow-alt-circle-down"></i>
       </div>
       <div class="answer-content">
         <p>{{ answer.content }}</p>
