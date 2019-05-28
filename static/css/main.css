@@ -72,10 +72,10 @@ nav > a {
 }
 
 /* login.html */
-.login-page{
+/* .login-page{
   display: flex;
   flex-direction: column;
-}
+} */
 
 /* profile.html */
 .profile-container{
@@ -137,17 +137,10 @@ nav > a {
 }
 
 /* register.html */
-
-.input-fields{
-  display: flex;
-  flex: column;
-  justify-content: space-between;
-  width: 30vw;
-}
-
-.input-fields > label {
-  
-}
+/* 
+.input-fields {
+  width: 60em;
+} */
 
 .deck-wrapper {
   display: flex;
@@ -191,10 +184,6 @@ nav > a {
   display: inline-block;
 }
 
-.measure {
-  border: 1px solid;
-  max-width: none; 
-}
 .pain-btn {
   cursor: pointer;
 }
