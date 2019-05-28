@@ -2,8 +2,9 @@ $( document ).ready(function() {
 console.log("hello world");
 
 setPain = x => {
-  $('.pain-btn').css('text-shadow', 'none')
-  $(`#pain${x}`).css('text-shadow', '1px 1px 5px red')
+
+  $('.pain-btn').removeClass('painful')
+  $(`#pain${x}`).addClass('painful')
 }
 
 setPain($('.pain-chart')[0].id)
@@ -164,8 +165,8 @@ function create_post(url, data,
 }
 
 endOfTheLine = () => {
-  if(confirm('//MAKE THIS A MODAL WITH A FUN GIF THANKS//\nhead back to profile?')){$(location).attr('href','/accounts/profile')}
-}
+  if(confirm('YOU FINISHED \nCancel to stay on deck\nOK to go to profile')){$(location).attr('href','/accounts/profile')}
+}//MAKE THIS A MODAL WITH A FUN GIF THANKS//
 
 // Event Listeners
 $('.pain-chart').on('click', 'a', sendPain);

@@ -74,9 +74,9 @@ main.landing-main {
   /* list-style: none; */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   text-align: center;
-  font-size: 3em;
+  font-size: 2.5em;
   height: 20vh;
-  width: 30vh;
+  width: 35vh;
   line-height: 20vh;
   color: white;
   border-radius: 20px;
@@ -257,4 +257,11 @@ a:link, a:visited, a:hover, a:active {
 
 .crossed-out {
   text-decoration: line-through;
+}
+
+.painful {
+  text-shadow: 3px  3px 5px red,
+               3px -3px 5px red,
+              -3px -3px 5px red,
+              -3px  3px 5px red;
 }
