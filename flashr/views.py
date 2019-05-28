@@ -21,6 +21,7 @@ def landing(request):
 #show one card from anywhere to anywhere
 @login_required
 def card_show(request, **kwargs):
+  print('is this thing ieven ariirna')
   profile = request.user.profile
   if 'idx' in kwargs: 
     idx = kwargs['idx']
@@ -34,9 +35,12 @@ def card_show(request, **kwargs):
     values = {'question': card}
 
   values['card_tags'] = card.tags.all()
+  print('pre community gathering')
   values['community'] = Answer.objects.filter(question=card, public=True).exists()
   with suppress(ObjectDoesNotExist):
+    print('no valuse')
     values['current_answer'] = Answer.objects.get(author=profile, question=card)
+    print('curent answer value', values['current_answer'])
   with suppress(ObjectDoesNotExist):
     values['pain'] = Pain.objects.filter(profile=profile, question=card).latest('time_stamp')#.order_by('-time_stamp')[0:1].get()
 
@@ -71,18 +75,24 @@ def deck_create(request, tag):
   return redirect('deck_show', tag=tag, idx=1)
 
 @login_required
-def card_community(request, pk):
-  user = request.user
-  question = Question.objects.get(pk=pk)
+def card_community(request, **kwargs):
+  profile = request.user.profile
+  if 'idx' in kwargs:
+    deck = Deck.objects.filter(profile=profile)
+    question = deck.get(order_idx=kwargs['idx']).question #gets the single card in question
+  else:
+    question = Question.objects.get(pk=kwargs['pk'])
+
+
   card_tags = question.tags.all()
 
   # Cache all public answers for current question, and all votes for those answers
   answers = Answer.objects.filter(public=True,question=question).prefetch_related('question')
   votes = Vote.objects.filter(answer__question=question).prefetch_related('answer')
   ## get all the users votes
-  user_votes = votes.filter(profile=user.profile)
+  user_votes = votes.filter(profile=profile)
   ## append them to the relevant answer
-  user_votes = votes.filter(profile=user.profile,answer_id=OuterRef('pk')).values('vote')
+  user_votes = votes.filter(profile=profile,answer_id=OuterRef('pk')).values('vote')
   answers = answers.annotate(user_vote=Subquery(user_votes))
 
   ## Count up all the votes and sort by the top Answers
@@ -108,6 +118,13 @@ def card_community(request, pk):
   # So instead we need to count up all the Yes votes and all the No votes, and then subtract them
 
   values = {'question': question, 'card_tags': card_tags, 'answers': annotated_sorted}
+  values['community'] = Answer.objects.filter(question=question, public=True).exists()
+  with suppress(ObjectDoesNotExist):
+    print('no valuse')
+    values['current_answer'] = Answer.objects.get(author=profile, question=question)
+    print('curent answer value', values['current_answer'])
+  with suppress(ObjectDoesNotExist):
+    values['pain'] = Pain.objects.filter(profile=profile, question=question).latest('time_stamp')#.order_by('-time_stamp')[0:1].get()
   return render(request, 'flashr/card_community.html', values)
 
 ## API Endpoints

@@ -7,6 +7,7 @@ urlpatterns = [
   path('question/<int:pk>', views.card_show, name='question_show'),
   path('deck/<slug:tag>', views.deck_create, name='deck_create'),
   path('deck/<slug:tag>/<int:idx>', views.card_show, name='deck_show'),
+  path('question/<slug:tag>/<int:idx>/community', views.card_community, name='card_community'),
   # path('community', views.community_home, name='community'),
   path('question/<int:pk>/community', views.card_community, name='card_community'),
 
